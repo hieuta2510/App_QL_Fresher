@@ -1,0 +1,38 @@
+<resources>
+<!--    login form-->
+    <string name="app_name">QL_Fresher</string>
+    <string name="top_icon">TOP ICON</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="login">LOGIN</string>
+    <string name="forgot_password">FORGOT PASSWORD?</string>
+    <string name="Cancel">Cancel</string>
+    <string name="navigation_drawer_open">Open Navigation Drawer</string>
+    <string name="navigation_drawer_close">Close navigation Drawer</string>
+
+<!--    toast-->
+    <string name="toastSuccess">Login Successfully</string>
+    <string name="toastError">Login Failed</string>
+    <string name="toastForgotPass">Sent email to you</string>
+    <string name="toastFillEmailForgot">Please, enter your email</string>
+
+<!--    menu-->
+    <string name="menu_manageCenter"> Center </string>
+    <string name="menu_manageFresher"> Fresher </string>
+    <string name="menu_home">Home </string>
+    <string name="menu_dashboard">Dashboard </string>
+    <string name="menu_signout">Sign out </string>
+    <string name="menu_changepassword">Change password</string>
+    <string name="menu_profile">Profile </string>
+
+
+<!--    mainmenu-->
+    <string name="main_funtion">All Function </string>
+    <string name="hello">Hello, </string>
+
+<!--    home-->
+    <string name="home_manageCenter"> Center </string>
+    <string name="home_manageFresher"> Fresher </string>
+    <string name="home_dashboard">Dashboard </string>
+    <string name="home_profile">Profile </string>
+</resources>

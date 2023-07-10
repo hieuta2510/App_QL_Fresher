@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1076346857861",
+    "project_id": "qlyfresher",
+    "storage_bucket": "qlyfresher.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1076346857861:android:5cb309e9eb7025805dfcec",
+        "android_client_info": {
+          "package_name": "edu.ptit.ql_fresher"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1076346857861-2aj8lhc8aia6dqek1cuqd0knesc3atck.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCaMj-faUxhwbFqrsLaSM6wUO7UZmcWWhI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1076346857861-2aj8lhc8aia6dqek1cuqd0knesc3atck.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
