@@ -72,24 +72,6 @@ public class FragmentHome extends Fragment implements AdapterRecycleFunc.ItemLis
 
     @Override
     public void onItemClick(View view, int position) {
-        switch (position) {
-            case 0:
-                System.out.println("ok 0");
-                FragmentManageFresher ff = new FragmentManageFresher();
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.viewPager,
-                        ff).commit();
-                break;
-            case 1:
-                FragmentManageCenter fc = new FragmentManageCenter();
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.viewPager,
-                        fc).commit();
-                break;
-            case 2:
-                FragmentDashboard fd = new FragmentDashboard();
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.viewPager,
-                        fd).commit();
-                break;
-        }
     }
 
     @Override
