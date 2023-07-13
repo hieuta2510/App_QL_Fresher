@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
 
@@ -40,7 +41,7 @@ import edu.ptit.ql_fresher.model.Fresher;
 import edu.ptit.ql_fresher.model.Func;
 
 
-public class FragmentHome extends Fragment implements AdapterRecycleFunc.ItemListener{
+public class FragmentHome extends Fragment{
     private FragmentManager fragmentManager;
     private RecyclerView recyclerView;
     private AdapterRecycleFunc adapter;
@@ -62,16 +63,11 @@ public class FragmentHome extends Fragment implements AdapterRecycleFunc.ItemLis
         Func func3 = new Func(R.drawable.dashboard, getResources().getString(R.string.home_dashboard));
         list.add(func1); list.add(func2); list.add(func3);
         adapter.setList(list);
-        adapter.setItemListener(this);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 3);
         gridLayoutManager.setOrientation(GridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(gridLayoutManager);
         recyclerView.setAdapter(adapter);
         fragmentManager = getActivity().getSupportFragmentManager();
-    }
-
-    @Override
-    public void onItemClick(View view, int position) {
     }
 
     @Override

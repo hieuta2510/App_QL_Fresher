@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bgadd"
+    tools:context=".AddFresherActivity">
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="198dp">
+
+        <TextView
+            android:id="@+id/titlepage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="18dp"
+            android:gravity="center"
+            android:text="@string/titleAddActivity"
+            android:textColor="#FFF"
+            android:textSize="26sp" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="-130dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp">
+
+        <LinearLayout
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tvNameAdd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="@string/tvNameAddAc"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/etNameAdd"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/bginputtask"
+                android:hint="@string/etNameAddAc"
+                android:inputType="text"
+                android:paddingLeft="12dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:textColorHint="#B5B5B5" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tvEmailAdd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="@string/tvEmailAddAc"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/etEmailAdd"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/bginputtask"
+                android:hint="@string/etEmailAddAc"
+                android:inputType="text"
+                android:maxLength="25"
+                android:paddingLeft="12dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:textColorHint="#B5B5B5" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tvLangAdd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="@string/tvLangAddAc"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/etLangAdd"
+                android:layout_width="match_parent"
+                android:layout_height="42dp"
+                android:hint="@string/etLangAddAc"
+                android:paddingLeft="12dp"
+                android:background="@drawable/bginputtask"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tvCenterAdd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="@string/tvCenterAddAc"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/etCenterAdd"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/bginputtask"
+                android:hint="@string/etCenterAddAc"
+                android:inputType="text"
+                android:paddingLeft="12dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:textColorHint="#B5B5B5" />
+
+            <TextView
+                android:id="@+id/tvDoBAdd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:text="@string/tvDoBAddAc"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/etDoBAdd"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/bginputtask"
+                android:hint="@string/etDoBAddAc"
+                android:inputType="text"
+                android:paddingLeft="12dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:textColorHint="#B5B5B5" />
+
+            <TextView
+                android:id="@+id/tvImg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:text="@string/tvPicAddAc"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:id="@+id/img"
+                android:src="@drawable/addpicicon"
+                android:scaleType="centerCrop"
+                android:cropToPadding="false"
+                android:layout_marginTop="5dp"
+                android:layout_gravity="center"
+                android:layout_width="100dp"
+                android:layout_height="100dp"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnSaveTask"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="16dp"
+        android:background="@drawable/bgbuttoncreate"
+        android:text="@string/btConfirm"
+        android:textAllCaps="false"
+        android:textColor="#FFF"
+        android:textSize="22sp" />
+
+    <Button
+        android:id="@+id/btnCancel"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="16dp"
+        android:background="@drawable/bgbuttoncancel"
+        android:text="@string/btCancel"
+        android:textAllCaps="false"
+        android:textSize="22sp" />
+
+
+</LinearLayout>

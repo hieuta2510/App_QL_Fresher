@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@drawable/bgitemdoes"
+    android:orientation="horizontal"
+    android:layout_marginBottom="5dp"
+    android:layout_height="wrap_content">
+    <ImageView
+        android:id="@+id/imgit"
+        android:layout_marginRight="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/user"/>
+
+    <LinearLayout
+        android:layout_width="230dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/tvNameit"
+            android:layout_marginTop="10dp"
+            android:textSize="17dp"
+            android:textColor="#000C5D"
+            android:text="Ta Minh Hieu"
+            android:textStyle="bold"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tvEmailit"
+            android:layout_marginTop="10dp"
+            android:textSize="17dp"
+            android:textColor="#000C5D"
+            android:text="taminhhieu251@gmail.com"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="7dp">
+        <TextView
+            android:layout_marginTop="10dp"
+            android:id="@+id/tvLangit"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Java, Pythom"/>
+        <TextView
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:id="@+id/tvCenterit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="VMO"
+            android:textSize="17dp"/>
+
+    </LinearLayout>
+
+
+</LinearLayout>

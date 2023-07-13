@@ -1,48 +1,35 @@
 package edu.ptit.ql_fresher.model;
 
 public class Fresher {
-    private int id;
-    private String name, language, email;
-    private float score;
-    private String phone, dateOfBirth;
+    private String key;
+    private String name;
+    private String email;
+    private String language;
     private String center;
+    private String dateOfBirth;
+    private String image;
+    private String score;
 
-    public Fresher(int id, String name, String language, String email, float score, String phone, String dateOfBirth, String center) {
-        this.id = id;
+    public Fresher() {
+    }
+
+    public Fresher(String key, String name, String email, String language, String center, String dateOfBirth, String image, String score) {
+        this.key = key;
         this.name = name;
-        this.language = language;
         this.email = email;
-        this.score = score;
-        this.phone = phone;
-        this.dateOfBirth = dateOfBirth;
+        this.language = language;
         this.center = center;
-    }
-
-    public Fresher(String name, String language, String email, float score, String phone, String dateOfBirth, String center) {
-        this.name = name;
-        this.language = language;
-        this.email = email;
-        this.score = score;
-        this.phone = phone;
         this.dateOfBirth = dateOfBirth;
-        this.center = center;
-    }
-
-    public Fresher(String name, String language, String email, float score, String phone, String dateOfBirth) {
-        this.name = name;
-        this.language = language;
-        this.email = email;
+        this.image = image;
         this.score = score;
-        this.phone = phone;
-        this.dateOfBirth = dateOfBirth;
     }
 
-    public int getId() {
-        return id;
+    public String getKey() {
+        return key;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setKey(String key) {
+        this.key = key;
     }
 
     public String getName() {
@@ -53,14 +40,6 @@ public class Fresher {
         this.name = name;
     }
 
-    public String getLanguage() {
-        return language;
-    }
-
-    public void setLanguage(String language) {
-        this.language = language;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -69,20 +48,20 @@ public class Fresher {
         this.email = email;
     }
 
-    public float getScore() {
-        return score;
+    public String getLanguage() {
+        return language;
     }
 
-    public void setScore(float score) {
-        this.score = score;
+    public void setLanguage(String language) {
+        this.language = language;
     }
 
-    public String getPhone() {
-        return phone;
+    public String getCenter() {
+        return center;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setCenter(String center) {
+        this.center = center;
     }
 
     public String getDateOfBirth() {
@@ -93,11 +72,19 @@ public class Fresher {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public String getCenter() {
-        return center;
+    public String getImage() {
+        return image;
     }
 
-    public void setCenter(String center) {
-        this.center = center;
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getScore() {
+        return score;
+    }
+
+    public void setScore(String score) {
+        this.score = score;
     }
 }

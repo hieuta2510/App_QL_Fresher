@@ -1,6 +1,7 @@
 <resources>
-<!--    login form-->
-    <string name="app_name">QL_Fresher</string>
+    <!--    login form-->
+    <!--    <string name="app_name">QL_Fresher</string>-->
+    <string name="app_name">TMH App</string>
     <string name="top_icon">TOP ICON</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
@@ -10,13 +11,13 @@
     <string name="navigation_drawer_open">Open Navigation Drawer</string>
     <string name="navigation_drawer_close">Close navigation Drawer</string>
 
-<!--    toast-->
+    <!--    toast-->
     <string name="toastSuccess">Login Successfully</string>
     <string name="toastError">Login Failed</string>
     <string name="toastForgotPass">Sent email to you</string>
     <string name="toastFillEmailForgot">Please, enter your email</string>
 
-<!--    menu-->
+    <!--    menu-->
     <string name="menu_manageCenter"> Center </string>
     <string name="menu_manageFresher"> Fresher </string>
     <string name="menu_home">Home </string>
@@ -26,13 +27,48 @@
     <string name="menu_profile">Profile </string>
 
 
-<!--    mainmenu-->
+    <!--    mainmenu-->
     <string name="main_funtion">All Function </string>
     <string name="hello">Hello, </string>
 
-<!--    home-->
+    <!--    home-->
     <string name="home_manageCenter"> Center </string>
     <string name="home_manageFresher"> Fresher </string>
     <string name="home_dashboard">Dashboard </string>
     <string name="home_profile">Profile </string>
+
+    <!--    fresher-->
+    <string name="fresher_title">Manage Fresher</string>
+    <string name="etHintSearch">Enter fresher name</string>
+    <string name="tvSelectCategory">Select Programming language</string>
+    <string name="btSearch">Search</string>
+    <string name="dashboard">Total number of freshers: </string>
+    <string name="btConfirm">Confirm</string>
+    <string name="titleAddActivity">Add New Fresher</string>
+    <string name="tvNameAddAc">Fresher Name</string>
+    <string name="etNameAddAc">Enter fresher name</string>
+    <string name="tvEmailAddAc">Fresher Email</string>
+    <string name="etEmailAddAc">Enter fresher email</string>
+    <string name="tvLangAddAc">Fresher Language</string>
+    <string name="etLangAddAc">Enter fresher language</string>
+    <string name="tvCenterAddAc">Center</string>
+    <string name="etCenterAddAc">Enter center</string>
+    <string name="tvDoBAddAc">Date of Birth</string>
+    <string name="etDoBAddAc">Enter date of birth</string>
+    <string name="tvPicAddAc">Select Picture</string>
+    <string name="btCancel">Cancel</string>
+    <string name="val_img">Select picture, pls</string>
+    <string name="val_name">Enter name, pls</string>
+    <string name="val_email">Enter email, pls</string>
+    <string name="val_lang">Enter language, pls</string>
+    <string name="val_center">Enter center, pls</string>
+    <string name="val_dob">Select DoBw, pls</string>
+
+    <!--    programming language-->
+    <string-array name="spProgramLang">
+        <item>Java</item>
+        <item>Node JS</item>
+        <item>JS</item>
+        <item>Python</item>
+    </string-array>
 </resources>
