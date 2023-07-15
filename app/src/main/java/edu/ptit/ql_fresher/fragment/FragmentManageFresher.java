@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,10 +18,12 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.app.ActionBar;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -96,9 +99,19 @@ public class FragmentManageFresher extends Fragment {
         add_fresh_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(),
-                        AddFresherActivity.class);
-                startActivity(intent);
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                fragmentManager
+                        .beginTransaction()
+                        .replace(R.id.frame, new FragmentAddFresher())
+                        .commit();
+
+                RelativeLayout fragmentContainer = getActivity().findViewById(R.id.frame);
+                BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.bottom_nav);
+                bottomNavigationView.setVisibility(View.GONE);
+                fragmentContainer.requestLayout();
+//                Intent intent = new Intent(getActivity(),
+//                        AddFresherActivity.class);
+//                startActivity(intent);
             }
         });
     }
@@ -165,7 +178,7 @@ public class FragmentManageFresher extends Fragment {
                 // set code to retrive data and replace layout
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
                     Fresher fresher = dataSnapshot1.getValue(Fresher.class);
-                    if(fresher.getName().toLowerCase().contains(key)) {
+                    if(fresher.getName().toLowerCase().contains(key.toLowerCase()) || fresher.getEmail().contains(key.toLowerCase())) {
                         mList.add(fresher);
                     }
                 }
