@@ -10,6 +10,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +25,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -35,7 +37,6 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Random;
 
-import edu.ptit.ql_fresher.AddFresherActivity;
 import edu.ptit.ql_fresher.MainActivity;
 import edu.ptit.ql_fresher.MyReceiver;
 import edu.ptit.ql_fresher.R;
@@ -88,7 +89,8 @@ public class FragmentAddFresher extends Fragment {
         btCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onDestroyView();
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                fragmentManager.popBackStack();
             }
         });
         return mView;
@@ -99,6 +101,7 @@ public class FragmentAddFresher extends Fragment {
         email = etEmail.getText().toString();
         language = etLang.getText().toString();
         center = etCenter.getText().toString();
+        dob = etDoB.getText().toString();
         if(imageUri==null){
             Toast.makeText(getActivity(), getResources().getString(R.string.val_img), Toast.LENGTH_SHORT).show();
         }else if(email.isEmpty()){
@@ -109,13 +112,13 @@ public class FragmentAddFresher extends Fragment {
             Toast.makeText(getActivity(), getResources().getString(R.string.val_lang), Toast.LENGTH_SHORT).show();
         }else if(name.isEmpty()){
             Toast.makeText(getActivity(), getResources().getString(R.string.val_name), Toast.LENGTH_SHORT).show();
-        }else if(name.isEmpty()){
-            Toast.makeText(getActivity(), getResources().getString(R.string.val_name), Toast.LENGTH_SHORT).show();
+        }else if(dob.isEmpty()){
+            Toast.makeText(getActivity(), getResources().getString(R.string.val_dob), Toast.LENGTH_SHORT).show();
         }else{
-            storeWork();
+            storeFresher();
         }
     }
-    private void storeWork(){
+    private void storeFresher(){
         Calendar c=Calendar.getInstance();
         SimpleDateFormat curDate=new SimpleDateFormat("dd-MM-yyyy");
         saveCurDate=curDate.format(c.getTime());
@@ -152,14 +155,14 @@ public class FragmentAddFresher extends Fragment {
                         downloadImgUrl=task.getResult().toString();
                         Toast.makeText(getActivity(),
                                 "Lưu URL thành công", Toast.LENGTH_SHORT).show();
-                        saveWorktoDatabase();
+                        saveFresherToDatabase();
                     }
                 });
             }
         });
     }
 
-    private void saveWorktoDatabase(){
+    private void saveFresherToDatabase(){
         HashMap<String,Object> product=new HashMap<>();
         product.put("key",TAG+randomKey);
         product.put("name",name);
@@ -228,5 +231,12 @@ public class FragmentAddFresher extends Fragment {
         btConfirm = mView.findViewById(R.id.btnSaveTaskFR);
         btCancel = mView.findViewById(R.id.btnCancelFR);
         img= mView.findViewById(R.id.imgFR);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.bottom_nav);
+        bottomNavigationView.setVisibility(View.VISIBLE);
     }
 }

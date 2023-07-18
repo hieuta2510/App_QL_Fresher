@@ -72,7 +72,7 @@
                 android:id="@+id/search"
                 android:layout_width="265dp"
                 android:layout_height="35dp"
-                android:layout_marginLeft="5dp"
+                android:layout_marginLeft="10dp"
                 android:layout_marginTop="0dp"
                 android:layout_marginRight="5dp"
                 android:background="@drawable/bgbuttoncancel"
@@ -84,12 +84,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
                 android:text="@string/tvSelectCategory" />
             <Spinner
                 android:id="@+id/spLangSearch"
                 android:layout_width="match_parent"
                 android:layout_marginTop="8dp"
                 android:layout_height="30dp"
+                android:layout_marginLeft="10dp"
                 android:background="@drawable/bginputtask"/>
         </LinearLayout>
 
@@ -97,7 +99,7 @@
             android:id="@+id/btSearch"
             android:layout_width="95dp"
             android:layout_height="35dp"
-            android:layout_marginLeft="30dp"
+            android:layout_marginLeft="20dp"
             android:layout_marginBottom="30dp"
             android:background="@drawable/bgbuttoncreate"
             android:gravity="center"
@@ -114,6 +116,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
+        android:layout_marginLeft="10dp"
         android:textColor="@color/black"
         app:layout_constraintTop_toBottomOf="@id/layout"
         app:layout_constraintLeft_toLeftOf="parent"/>

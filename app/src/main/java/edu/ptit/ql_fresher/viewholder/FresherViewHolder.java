@@ -12,13 +12,14 @@ import edu.ptit.ql_fresher.model.ItemClickListener;
 
 public class FresherViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         public ImageView img;
-        public TextView tvName, tvEmail, tvLang;
+        public TextView tvName, tvEmail, tvLang, tvCenter;
         public ItemClickListener listener;
         public FresherViewHolder(@NonNull View view) {
             super(view);
             tvName =view.findViewById(R.id.tvNameit);
             tvEmail =view.findViewById(R.id.tvEmailit);
             tvLang =view.findViewById(R.id.tvLangit);
+            tvCenter =view.findViewById(R.id.tvCenterit);
             img=view.findViewById(R.id.imgit);
         }
 

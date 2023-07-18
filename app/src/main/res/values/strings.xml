@@ -13,9 +13,12 @@
 
     <!--    toast-->
     <string name="toastSuccess">Login Successfully</string>
-    <string name="toastError">Login Failed</string>
+    <string name="toastLoginError">Login Failed</string>
+    <string name="toastError">Error</string>
     <string name="toastForgotPass">Sent email to you</string>
     <string name="toastFillEmailForgot">Please, enter your email</string>
+    <string name="toastUpdateSuccess">Updated Fresher!</string>
+    <string name="toastSaveURL">Saved URL!</string>
 
     <!--    menu-->
     <string name="menu_manageCenter"> Center </string>
@@ -43,8 +46,16 @@
     <string name="tvSelectCategory">Select Programming language</string>
     <string name="btSearch">Search</string>
     <string name="dashboard">Total number of freshers: </string>
-    <string name="btConfirm">Confirm</string>
-    <string name="titleAddActivity">Add New Fresher</string>
+    <string name="val_img">Select picture, pls</string>
+    <string name="val_name">Enter name, pls</string>
+    <string name="val_email">Enter email, pls</string>
+    <string name="val_lang">Enter language, pls</string>
+    <string name="val_center">Enter center, pls</string>
+    <string name="val_dob">Select DoBw, pls</string>
+    <string name="val_score">Enter score, pls</string>
+
+<!--    add fresher-->
+    <string name="titleAddFragment">Add New Fresher</string>
     <string name="tvNameAddAc">Fresher Name</string>
     <string name="etNameAddAc">Enter fresher name</string>
     <string name="tvEmailAddAc">Fresher Email</string>
@@ -56,13 +67,19 @@
     <string name="tvDoBAddAc">Date of Birth</string>
     <string name="etDoBAddAc">Enter date of birth</string>
     <string name="tvPicAddAc">Select Picture</string>
+    <string name="btConfirm">Confirm</string>
     <string name="btCancel">Cancel</string>
-    <string name="val_img">Select picture, pls</string>
-    <string name="val_name">Enter name, pls</string>
-    <string name="val_email">Enter email, pls</string>
-    <string name="val_lang">Enter language, pls</string>
-    <string name="val_center">Enter center, pls</string>
-    <string name="val_dob">Select DoBw, pls</string>
+
+<!--    edit delete-->
+    <string name="titleEditFragment">Edit Fresher</string>
+    <string name="btUpdate">Update</string>
+    <string name="btDelete">Delete</string>
+    <string name="tvScoreEdit">Score: </string>
+    <string name="etScoreEdit">Enter 3 points</string>
+    <string name="dialogDelTit">Delete Fresher</string>
+    <string name="dialogDelMes">Are you sure to remove this person</string>
+    <string name="dialogDelBtOk">OK</string>
+    <string name="toastDelSuccess">Delete fresher successfully</string>
 
     <!--    programming language-->
     <string-array name="spProgramLang">
