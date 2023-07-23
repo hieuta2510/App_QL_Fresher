@@ -34,6 +34,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.ptit.ql_fresher.AddActivity;
 import edu.ptit.ql_fresher.MainActivity;
 import edu.ptit.ql_fresher.R;
 import edu.ptit.ql_fresher.adapter.AdapterFresher;
@@ -98,16 +99,9 @@ public class FragmentManageFresher extends Fragment {
         add_fresh_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                fragmentManager
-                        .beginTransaction()
-                        .replace(R.id.frame, new FragmentAddFresher()).addToBackStack(null)
-                        .commit();
-
-                RelativeLayout fragmentContainer = getActivity().findViewById(R.id.frame);
-                BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.bottom_nav);
-                bottomNavigationView.setVisibility(View.GONE);
-                fragmentContainer.requestLayout();
+                Intent intent = new Intent(getActivity(), AddActivity.class);
+                intent.putExtra("act", 0);
+                startActivity(intent);
             }
         });
     }

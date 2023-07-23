@@ -39,6 +39,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 
+import edu.ptit.ql_fresher.EditDeleteActivity;
 import edu.ptit.ql_fresher.R;
 
 public class FragmentEditDeleteFresher extends Fragment {
@@ -113,8 +114,7 @@ public class FragmentEditDeleteFresher extends Fragment {
         btCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                fragmentManager.popBackStack();
+                goBackToFragmentManageCenter();
             }
         });
         return mView;
@@ -126,8 +126,7 @@ public class FragmentEditDeleteFresher extends Fragment {
             public void onComplete(@NonNull Task<Void> task) {
                 Toast.makeText(getActivity(),
                         getResources().getString(R.string.toastDelSuccess), Toast.LENGTH_SHORT).show();
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                fragmentManager.popBackStack();
+                goBackToFragmentManageCenter();
             }
         });
     }
@@ -213,8 +212,7 @@ public class FragmentEditDeleteFresher extends Fragment {
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {
                         Toast.makeText(getActivity(),getResources().getString(R.string.toastUpdateSuccess), Toast.LENGTH_SHORT).show();
-                        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                        fragmentManager.popBackStack();
+                        goBackToFragmentManageCenter();
                     }
                 }
             });
@@ -259,8 +257,7 @@ public class FragmentEditDeleteFresher extends Fragment {
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {
                         Toast.makeText(getActivity(),getResources().getString(R.string.toastUpdateSuccess), Toast.LENGTH_SHORT).show();
-                        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                        fragmentManager.popBackStack();
+                        goBackToFragmentManageCenter();
                     }
                 }
             });
@@ -356,10 +353,9 @@ public class FragmentEditDeleteFresher extends Fragment {
         btCancel = mView.findViewById(R.id.btCancelEdit);
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.bottom_nav);
-        bottomNavigationView.setVisibility(View.VISIBLE);
+    private void goBackToFragmentManageCenter() {
+        if (getActivity() instanceof EditDeleteActivity) {
+            ((EditDeleteActivity) getActivity()).navigateBackToFragmentManageCenter();
+        }
     }
 }

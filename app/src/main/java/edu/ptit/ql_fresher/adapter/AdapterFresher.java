@@ -20,6 +20,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import edu.ptit.ql_fresher.EditDeleteActivity;
 import edu.ptit.ql_fresher.MainActivity;
 import edu.ptit.ql_fresher.R;
 import edu.ptit.ql_fresher.fragment.FragmentAddFresher;
@@ -60,18 +61,10 @@ public class AdapterFresher extends RecyclerView.Adapter<FresherViewHolder> {
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Bundle bundle = new Bundle();
-                bundle.putString("key", fresher.getKey());
-                FragmentEditDeleteFresher fragEdit = new FragmentEditDeleteFresher();
-                fragEdit.setArguments(bundle);
-                FragmentManager fragmentManager = ((AppCompatActivity) mContext).getSupportFragmentManager();
-                fragmentManager.beginTransaction()
-                        .add(R.id.frame, fragEdit).addToBackStack(null)
-                        .commit();
-                RelativeLayout fragmentContainer = ((AppCompatActivity) holder.itemView.getContext()).findViewById(R.id.frame);
-                BottomNavigationView bottomNavigationView = ((AppCompatActivity) holder.itemView.getContext()).findViewById(R.id.bottom_nav);
-                bottomNavigationView.setVisibility(View.GONE);
-                fragmentContainer.requestLayout();
+                Intent intent = new Intent(mContext, EditDeleteActivity.class);
+                intent.putExtra("act", 0);
+                intent.putExtra("key", fresher.getKey());
+                mContext.startActivity(intent);
             }
         });
     }

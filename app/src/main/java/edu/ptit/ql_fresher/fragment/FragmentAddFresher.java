@@ -10,7 +10,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,7 +24,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -37,9 +35,12 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Random;
 
+import edu.ptit.ql_fresher.AddActivity;
 import edu.ptit.ql_fresher.MainActivity;
 import edu.ptit.ql_fresher.MyReceiver;
 import edu.ptit.ql_fresher.R;
+import edu.ptit.ql_fresher.database.SQLiteHelper;
+import edu.ptit.ql_fresher.model.Center;
 
 public class FragmentAddFresher extends Fragment {
     private static final String TAG = "To";
@@ -57,6 +58,7 @@ public class FragmentAddFresher extends Fragment {
     private String name, email, language, center, dob;
     private int mYear, mMonth, mDay;
     private View mView;
+    private SQLiteHelper db;
     public FragmentAddFresher() {
         // Required empty public constructor
     }
@@ -89,8 +91,7 @@ public class FragmentAddFresher extends Fragment {
         btCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                fragmentManager.popBackStack();
+                goBackToMainActivity();
             }
         });
         return mView;
@@ -101,13 +102,12 @@ public class FragmentAddFresher extends Fragment {
         email = etEmail.getText().toString();
         language = etLang.getText().toString();
         center = etCenter.getText().toString();
+        if (center.isEmpty()) center = "None";
         dob = etDoB.getText().toString();
         if(imageUri==null){
             Toast.makeText(getActivity(), getResources().getString(R.string.val_img), Toast.LENGTH_SHORT).show();
         }else if(email.isEmpty()){
             Toast.makeText(getActivity(), getResources().getString(R.string.val_email), Toast.LENGTH_SHORT).show();
-        }else if(center.isEmpty()){
-            Toast.makeText(getActivity(), getResources().getString(R.string.val_center), Toast.LENGTH_SHORT).show();
         }else if(language.isEmpty()){
             Toast.makeText(getActivity(), getResources().getString(R.string.val_lang), Toast.LENGTH_SHORT).show();
         }else if(name.isEmpty()){
@@ -194,14 +194,16 @@ public class FragmentAddFresher extends Fragment {
                             PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(),
                                     0, intent, 0);
                             am.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
-
-                            Intent intent1=new Intent(getActivity(),
-                                    MainActivity.class);
-                            startActivity(intent1);
                             Toast.makeText(getActivity(), "Thêm thành công", Toast.LENGTH_SHORT).show();
+                            Center center2 = db.getCenterByName(center);
+                            Toast.makeText(getActivity(),String.valueOf(center2.getTotalFresher()), Toast.LENGTH_SHORT).show();
+                            center2.setTotalFresher(center2.getTotalFresher()+1);
+                            Toast.makeText(getActivity(),String.valueOf(center2.getTotalFresher()), Toast.LENGTH_SHORT).show();
+                            goBackToMainActivity();
                         }else{
                             Toast.makeText(getActivity(),
                                     "Thêm không thành công!", Toast.LENGTH_SHORT).show();
+                            goBackToMainActivity();
                         }
                     }
                 });
@@ -231,12 +233,12 @@ public class FragmentAddFresher extends Fragment {
         btConfirm = mView.findViewById(R.id.btnSaveTaskFR);
         btCancel = mView.findViewById(R.id.btnCancelFR);
         img= mView.findViewById(R.id.imgFR);
+        db = new SQLiteHelper(getActivity());
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.bottom_nav);
-        bottomNavigationView.setVisibility(View.VISIBLE);
+    private void goBackToMainActivity() {
+        if (getActivity() instanceof AddActivity) {
+            ((AddActivity) getActivity()).navigateBackToMainActivity();
+        }
     }
 }

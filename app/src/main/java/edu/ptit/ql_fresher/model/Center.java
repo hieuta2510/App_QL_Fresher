@@ -1,29 +1,32 @@
 package edu.ptit.ql_fresher.model;
 
-public class Center {
+import java.io.Serializable;
+
+public class Center implements Serializable {
     private int id;
-    private String name;
     private String acronym;
+    private String name;
     private String address;
-    private String totalFresher;
+    private int totalFresher;
 
     public Center() {
     }
 
-    public Center(int id, String name, String acronym, String address, String totalFresher) {
+    public Center(int id, String acronym, String name, String address, int totalFresher) {
         this.id = id;
-        this.name = name;
         this.acronym = acronym;
+        this.name = name;
         this.address = address;
         this.totalFresher = totalFresher;
     }
 
-    public Center(String name, String acronym, String address, String totalFresher) {
-        this.name = name;
+    public Center(String acronym, String name, String address, int totalFresher) {
         this.acronym = acronym;
+        this.name = name;
         this.address = address;
         this.totalFresher = totalFresher;
     }
+
 
     public int getId() {
         return id;
@@ -57,11 +60,22 @@ public class Center {
         this.address = address;
     }
 
-    public String getTotalFresher() {
+    public int getTotalFresher() {
         return totalFresher;
     }
 
-    public void setTotalFresher(String totalFresher) {
+    public void setTotalFresher(int totalFresher) {
         this.totalFresher = totalFresher;
+    }
+
+    @Override
+    public String toString() {
+        return "Center{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", acronym='" + acronym + '\'' +
+                ", address='" + address + '\'' +
+                ", totalFresher=" + totalFresher +
+                '}';
     }
 }

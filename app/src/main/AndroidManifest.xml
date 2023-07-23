@@ -12,9 +12,25 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.QL_Fresher"
         tools:targetApi="31">
+        <activity
+            android:name=".EditDeleteActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".AddActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
         <receiver
             android:name=".MyReceiver"
             android:exported="false" />
+
         <activity
             android:name=".AddFresherActivity"
             android:exported="false">

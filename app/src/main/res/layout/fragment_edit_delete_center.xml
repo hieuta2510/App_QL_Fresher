@@ -7,18 +7,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bgadd"
-    tools:context=".AddActivity">
+    tools:context=".EditDeleteActivity">
 
     <TextView
         android:id="@+id/titlepageFR"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="50dp"
         android:layout_marginBottom="18dp"
         android:gravity="center"
-        android:text="@string/titleAddFragment"
+        android:text="@string/tittleEditCenter"
         android:textColor="#FFF"
         android:textSize="26sp" />
+
+    <TextView
+        android:id="@+id/tvDetailsCenter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18dp"
+        android:textColor="#FFF"
+        android:layout_marginLeft="250dp"
+        android:text="View details"/>
 
     <LinearLayout
         android:layout_marginLeft="16dp"
@@ -31,35 +40,6 @@
         android:paddingTop="5dp">
 
         <LinearLayout
-            android:layout_marginRight="16dp"
-            android:layout_marginLeft="16dp"
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/tvNameAddFR"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:text="@string/tvNameAddAc"
-                android:textColor="@color/white"
-                android:textSize="18sp" />
-
-            <EditText
-                android:id="@+id/etNameAddFR"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:background="@drawable/bginputtask"
-                android:hint="@string/etNameAddAc"
-                android:inputType="text"
-                android:paddingLeft="12dp"
-                android:textColor="@color/colorPrimaryDark"
-                android:textColorHint="#B5B5B5" />
-
-        </LinearLayout>
-
-        <LinearLayout
             android:layout_marginTop="20dp"
             android:layout_marginRight="16dp"
             android:layout_marginLeft="16dp"
@@ -68,20 +48,20 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/tvEmailAddFR"
+                android:id="@+id/tvAcronymCenter"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:text="@string/tvEmailAddAc"
+                android:text="@string/tvCenterAcronym"
                 android:textColor="@color/white"
                 android:textSize="18sp" />
 
             <EditText
-                android:id="@+id/etEmailAddFR"
+                android:id="@+id/etEditAcronymCenter"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:background="@drawable/bginputtask"
-                android:hint="@string/etEmailAddAc"
+                android:hint="@string/etCenterAcronym"
                 android:inputType="text"
                 android:maxLength="25"
                 android:paddingLeft="12dp"
@@ -91,6 +71,36 @@
         </LinearLayout>
 
         <LinearLayout
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tvEditNameCenter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="@string/tvCenterName"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/etEditNameCenter"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/bginputtask"
+                android:hint="@string/etCenterName"
+                android:inputType="text"
+                android:paddingLeft="12dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:textColorHint="#B5B5B5" />
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_marginTop="20dp"
             android:layout_marginRight="16dp"
             android:layout_marginLeft="16dp"
@@ -99,118 +109,52 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/tvLangAddFR"
+                android:id="@+id/tvEditAddressCenter"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:text="@string/tvLangAddAc"
+                android:text="@string/tvCenterAddress"
                 android:textColor="@color/white"
                 android:textSize="18sp" />
 
             <EditText
-                android:id="@+id/etLangAddFR"
+                android:id="@+id/etEditAddressCenter"
                 android:layout_width="match_parent"
                 android:layout_height="42dp"
-                android:hint="@string/etLangAddAc"
+                android:hint="@string/etCenterAddress"
                 android:paddingLeft="12dp"
-                android:background="@drawable/bginputtask"
-                />
-
+                android:background="@drawable/bginputtask"/>
         </LinearLayout>
-
-        <LinearLayout
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginLeft="16dp"
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/tvCenterAddFR"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:text="@string/tvCenterAddAc"
-                android:textColor="@color/white"
-                android:textSize="18sp" />
-
-            <EditText
-                android:id="@+id/etCenterAddFR"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:background="@drawable/bginputtask"
-                android:hint="@string/etCenterAddAc"
-                android:inputType="text"
-                android:paddingLeft="12dp"
-                android:textColor="@color/colorPrimaryDark"
-                android:textColorHint="#B5B5B5" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginLeft="16dp"
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:id="@+id/tvDoBAddFR"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:text="@string/tvDoBAddAc"
-                android:textColor="@color/white"
-                android:textSize="18sp" />
-
-            <EditText
-                android:id="@+id/etDoBAddFR"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:background="@drawable/bginputtask"
-                android:hint="@string/etDoBAddAc"
-                android:inputType="text"
-                android:paddingLeft="12dp"
-                android:textColor="@color/colorPrimaryDark"
-                android:textColorHint="#B5B5B5" />
-        </LinearLayout>
-
-            <TextView
-                android:id="@+id/tvImgFR"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:text="@string/tvPicAddAc"
-                android:textColor="@color/white"
-                android:textSize="18sp" />
-
-            <ImageView
-                android:id="@+id/imgFR"
-                android:src="@drawable/addpicicon"
-                android:scaleType="centerCrop"
-                android:cropToPadding="false"
-                android:layout_marginTop="5dp"
-                android:layout_gravity="center"
-                android:layout_width="100dp"
-                android:layout_height="100dp"/>
-    </LinearLayout>
 
     <Button
-        android:id="@+id/btnSaveTaskFR"
+        android:id="@+id/btUpdateCenterEdit"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="150dp"
         android:layout_marginRight="16dp"
         android:background="@drawable/bgbuttoncreate"
-        android:text="@string/btConfirm"
+        android:text="@string/btUpdate"
         android:textAllCaps="false"
         android:textColor="#FFF"
         android:textSize="22sp" />
 
+        <Button
+        android:id="@+id/btDeleteCenterEdit"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="16dp"
+        android:background="@drawable/bgbuttondelete"
+        android:text="@string/btDelete"
+        android:textAllCaps="false"
+        android:textColor="#FFF"
+        android:textSize="22sp" />
+
+
     <Button
-        android:id="@+id/btnCancelFR"
+        android:id="@+id/btCancelCenterEdit"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginLeft="16dp"
@@ -220,6 +164,5 @@
         android:text="@string/btCancel"
         android:textAllCaps="false"
         android:textSize="22sp" />
-
-
+    </LinearLayout>
 </LinearLayout>

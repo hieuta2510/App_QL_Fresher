@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval"> <!-- Sử dụng thuộc tính "oval" để tạo hình tròn -->
+
+    <solid android:color="#FFFFFF" /> <!-- Màu nền của hình tròn (màu trắng trong ví dụ) -->
+</shape>
+

@@ -19,6 +19,7 @@
     <string name="toastFillEmailForgot">Please, enter your email</string>
     <string name="toastUpdateSuccess">Updated Fresher!</string>
     <string name="toastSaveURL">Saved URL!</string>
+    <string name="toastSaveCenter">Saved Center!</string>
 
     <!--    menu-->
     <string name="menu_manageCenter"> Center </string>
@@ -54,7 +55,7 @@
     <string name="val_dob">Select DoBw, pls</string>
     <string name="val_score">Enter score, pls</string>
 
-<!--    add fresher-->
+    <!--    add fresher-->
     <string name="titleAddFragment">Add New Fresher</string>
     <string name="tvNameAddAc">Fresher Name</string>
     <string name="etNameAddAc">Enter fresher name</string>
@@ -62,7 +63,7 @@
     <string name="etEmailAddAc">Enter fresher email</string>
     <string name="tvLangAddAc">Fresher Language</string>
     <string name="etLangAddAc">Enter fresher language</string>
-    <string name="tvCenterAddAc">Center</string>
+    <string name="tvCenterAddAc">Center(Acronym)</string>
     <string name="etCenterAddAc">Enter center</string>
     <string name="tvDoBAddAc">Date of Birth</string>
     <string name="etDoBAddAc">Enter date of birth</string>
@@ -70,7 +71,7 @@
     <string name="btConfirm">Confirm</string>
     <string name="btCancel">Cancel</string>
 
-<!--    edit delete-->
+    <!--    edit delete-->
     <string name="titleEditFragment">Edit Fresher</string>
     <string name="btUpdate">Update</string>
     <string name="btDelete">Delete</string>
@@ -80,6 +81,25 @@
     <string name="dialogDelMes">Are you sure to remove this person</string>
     <string name="dialogDelBtOk">OK</string>
     <string name="toastDelSuccess">Delete fresher successfully</string>
+
+    <!--    center-->
+    <string name="tittleManageCenter">Manage Center</string>
+
+    <!--    add center-->
+    <string name="tittleAddCenter">Add New Center</string>
+    <string name="tittleEditCenter">Edit Center</string>
+    <string name="tvCenterAcronym">Center Acronym</string>
+    <string name="etCenterAcronym">Enter center acronym</string>
+    <string name="tvCenterName">Center Name</string>
+    <string name="etCenterName">Enter center name</string>
+    <string name="tvCenterAddress">Center Address</string>
+    <string name="etCenterAddress">Enter center address</string>
+    <string name="val_acronym">Enter acronym, pls</string>
+    <string name="val_address">Enter address, pls</string>
+
+    <!--    edit center-->
+    <string name="dialogDelCenTit">Delete Center</string>
+    <string name="dialogDelCenMes">Are you sure to remove this center</string>
 
     <!--    programming language-->
     <string-array name="spProgramLang">
