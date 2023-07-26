@@ -1,6 +1,6 @@
 package edu.ptit.ql_fresher.model;
 
-public class Fresher {
+public class Fresher implements Comparable<Fresher>{
     private String key;
     private String name;
     private String email;
@@ -87,4 +87,18 @@ public class Fresher {
     public void setScore(String score) {
         this.score = score;
     }
+
+    // sx theo ten
+    @Override
+    public int compareTo(Fresher fresher2) {
+        String[] strFresher1 = this.name.replaceAll("\\p{M}", "").split("\\s+");
+        String[] strFresher2 = fresher2.getName().replaceAll("\\p{M}", "").split("\\s+");
+
+        // So sánh firstName
+        String firstName1 = strFresher1[strFresher1.length - 1];
+        String firstName2 = strFresher2[strFresher2.length - 1];
+
+        return firstName1.compareTo(firstName2);
+    }
+
 }

@@ -28,7 +28,7 @@ import edu.ptit.ql_fresher.fragment.FragmentEditDeleteFresher;
 import edu.ptit.ql_fresher.model.Fresher;
 import edu.ptit.ql_fresher.viewholder.FresherViewHolder;
 
-public class AdapterFresher extends RecyclerView.Adapter<FresherViewHolder> {
+public class AdapterFresher extends RecyclerView.Adapter<FresherViewHolder>{
     private Context mContext;
     private List<Fresher> mList;
 
@@ -39,6 +39,12 @@ public class AdapterFresher extends RecyclerView.Adapter<FresherViewHolder> {
 
     public void setmList(List<Fresher> mList) {
         this.mList = mList;
+        notifyDataSetChanged();
+    }
+
+    public void filterList(List<Fresher> filterlist)
+    {
+        mList = filterlist;
         notifyDataSetChanged();
     }
 
@@ -64,6 +70,7 @@ public class AdapterFresher extends RecyclerView.Adapter<FresherViewHolder> {
                 Intent intent = new Intent(mContext, EditDeleteActivity.class);
                 intent.putExtra("act", 0);
                 intent.putExtra("key", fresher.getKey());
+                intent.putExtra("oldCenterName", fresher.getCenter());
                 mContext.startActivity(intent);
             }
         });
@@ -73,5 +80,4 @@ public class AdapterFresher extends RecyclerView.Adapter<FresherViewHolder> {
     public int getItemCount() {
         return mList.size();
     }
-
 }

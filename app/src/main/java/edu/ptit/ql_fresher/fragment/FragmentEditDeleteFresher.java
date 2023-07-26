@@ -17,14 +17,12 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -41,6 +39,8 @@ import java.util.HashMap;
 
 import edu.ptit.ql_fresher.EditDeleteActivity;
 import edu.ptit.ql_fresher.R;
+import edu.ptit.ql_fresher.database.SQLiteHelper;
+import edu.ptit.ql_fresher.model.Center;
 
 public class FragmentEditDeleteFresher extends Fragment {
     private View mView;
@@ -55,6 +55,8 @@ public class FragmentEditDeleteFresher extends Fragment {
     private String key = "";
     private DatabaseReference myRef;
     private StorageReference imgRef;
+    private SQLiteHelper db;
+    private String oldCenterName = "";
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -69,6 +71,7 @@ public class FragmentEditDeleteFresher extends Fragment {
         check = 0;
         Bundle bundle = getArguments();
         key = bundle.getString("key");
+        oldCenterName = bundle.getString("oldCenterName");
         imgRef= FirebaseStorage.getInstance("gs://qlyfresher.appspot.com/").getReference().child("fresher img");
         myRef= FirebaseDatabase.getInstance("https://qlyfresher-default-rtdb.firebaseio.com/").getReference().child("fresherlist").child(key);
         displayFresher();
@@ -114,7 +117,7 @@ public class FragmentEditDeleteFresher extends Fragment {
         btCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                goBackToFragmentManageCenter();
+                goBackToMainActivity();
             }
         });
         return mView;
@@ -124,9 +127,10 @@ public class FragmentEditDeleteFresher extends Fragment {
         myRef.removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
+                updateCenterTotalFresherDel();
                 Toast.makeText(getActivity(),
                         getResources().getString(R.string.toastDelSuccess), Toast.LENGTH_SHORT).show();
-                goBackToFragmentManageCenter();
+                goBackToMainActivity();
             }
         });
     }
@@ -146,7 +150,7 @@ public class FragmentEditDeleteFresher extends Fragment {
             public void onFailure(@NonNull Exception e) {
                 String message=e.toString();
                 Toast.makeText(getActivity(),
-                        getResources().getString(R.string.toastDelSuccess) + ": " + message, Toast.LENGTH_SHORT).show();
+                        getResources().getString(R.string.toastFail) + ": " + message, Toast.LENGTH_SHORT).show();
             }
         }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
@@ -179,7 +183,7 @@ public class FragmentEditDeleteFresher extends Fragment {
         String name = etName.getText().toString();
         String email = etEmail.getText().toString();
         String lang = etLang.getText().toString();
-        String center = etCenter.getText().toString();
+        String center = etCenter.getText().toString().trim().toUpperCase();
         String dob = etDoB.getText().toString();
         String score = tvScore.getText().toString().substring(7);
         if (name.isEmpty()) {
@@ -212,7 +216,8 @@ public class FragmentEditDeleteFresher extends Fragment {
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {
                         Toast.makeText(getActivity(),getResources().getString(R.string.toastUpdateSuccess), Toast.LENGTH_SHORT).show();
-                        goBackToFragmentManageCenter();
+                        updateCenterTotalFresherEdit(center);
+                        goBackToMainActivity();
                     }
                 }
             });
@@ -223,7 +228,7 @@ public class FragmentEditDeleteFresher extends Fragment {
         String name = etName.getText().toString();
         String email = etEmail.getText().toString();
         String lang = etLang.getText().toString();
-        String center = etCenter.getText().toString();
+        String center = etCenter.getText().toString().trim().toUpperCase();
         String dob = etDoB.getText().toString();
         String score = tvScore.getText().toString().substring(7);
         if (name.isEmpty()) {
@@ -257,7 +262,8 @@ public class FragmentEditDeleteFresher extends Fragment {
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {
                         Toast.makeText(getActivity(),getResources().getString(R.string.toastUpdateSuccess), Toast.LENGTH_SHORT).show();
-                        goBackToFragmentManageCenter();
+                        updateCenterTotalFresherEdit(center);
+                        goBackToMainActivity();
                     }
                 }
             });
@@ -285,12 +291,35 @@ public class FragmentEditDeleteFresher extends Fragment {
                     Picasso.get().load(image).into(img);
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });
+    }
+
+    private void updateCenterTotalFresherEdit(String centerName)
+    {
+        if (!centerName.equals(oldCenterName)){
+            db = new SQLiteHelper(getActivity());
+            // thay doi so luong fresher center moi
+            Center center = db.getCenterByName(centerName);
+            center.setTotalFresher(center.getTotalFresher()+1);
+            db.updateCenter(center);
+
+            //thay doi so luong fresher center cu
+            center = db.getCenterByName(oldCenterName);
+            center.setTotalFresher(center.getTotalFresher()-1);
+            db.updateCenter(center);
+        }
+    }
+
+    private void updateCenterTotalFresherDel()
+    {
+            db = new SQLiteHelper(getActivity());
+            Center center = db.getCenterByName(oldCenterName);
+            center.setTotalFresher(center.getTotalFresher()-1);
+            db.updateCenter(center);
     }
 
     private void openGallery(){
@@ -353,7 +382,7 @@ public class FragmentEditDeleteFresher extends Fragment {
         btCancel = mView.findViewById(R.id.btCancelEdit);
     }
 
-    private void goBackToFragmentManageCenter() {
+    private void goBackToMainActivity() {
         if (getActivity() instanceof EditDeleteActivity) {
             ((EditDeleteActivity) getActivity()).navigateBackToFragmentManageCenter();
         }

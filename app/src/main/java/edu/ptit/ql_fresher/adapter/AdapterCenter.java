@@ -51,7 +51,7 @@ public class AdapterCenter extends RecyclerView.Adapter<CenterViewHolder> {
         holder.tvAcronym.setText(center.getAcronym());
         holder.tvName.setText(center.getName());
         holder.tvAdd.setText(center.getAddress());
-        holder.tvTotal.setText("Total number of center: " + String.valueOf(center.getTotalFresher()));
+        holder.tvTotal.setText(mContext.getResources().getString(R.string.dashboard)+ " " + String.valueOf(center.getTotalFresher()));
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -32,6 +32,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import edu.ptit.ql_fresher.AddActivity;
@@ -146,6 +147,7 @@ public class FragmentManageFresher extends Fragment {
                     Fresher fresher = dataSnapshot1.getValue(Fresher.class);
                     mList.add(fresher);
                 }
+                Collections.sort(mList);
                 adapter = new AdapterFresher(getContext(), mList);
                 recycleView.setAdapter(adapter);
                 DBFresher.setText(getResources().getString(R.string.dashboard) + " " + Integer.toString(mList.size()));

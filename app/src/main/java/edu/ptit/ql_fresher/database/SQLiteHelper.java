@@ -70,7 +70,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     public List<Center> getAllCenter() {
         List<Center> list = new ArrayList<>();
         SQLiteDatabase sqLiteDatabase = getReadableDatabase();
-        String order = "totalFresher ASC";
+        String order = "totalFresher DESC";
         Cursor rs = sqLiteDatabase.query("centers",
                 null, null, null,
                 null, null, order);

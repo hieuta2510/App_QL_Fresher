@@ -21,7 +21,9 @@ public class EditDeleteActivity extends AppCompatActivity {
         Bundle bundle = new Bundle();
         if(act == 0) {
             String key = intent.getStringExtra("key");
+            String oldCenterName = intent.getStringExtra("oldCenterName");
             bundle.putString("key", key);
+            bundle.putString("oldCenterName", oldCenterName);
             FragmentEditDeleteFresher editDeleteFresher = new FragmentEditDeleteFresher();
             editDeleteFresher.setArguments(bundle);
             getSupportFragmentManager()

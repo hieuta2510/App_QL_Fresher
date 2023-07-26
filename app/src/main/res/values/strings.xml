@@ -20,6 +20,7 @@
     <string name="toastUpdateSuccess">Updated Fresher!</string>
     <string name="toastSaveURL">Saved URL!</string>
     <string name="toastSaveCenter">Saved Center!</string>
+    <string name="toastFail">Fail!</string>
 
     <!--    menu-->
     <string name="menu_manageCenter"> Center </string>
@@ -100,6 +101,9 @@
     <!--    edit center-->
     <string name="dialogDelCenTit">Delete Center</string>
     <string name="dialogDelCenMes">Are you sure to remove this center</string>
+
+<!--    details-->
+    <string name="svFresher">Enter fresher email</string>
 
     <!--    programming language-->
     <string-array name="spProgramLang">

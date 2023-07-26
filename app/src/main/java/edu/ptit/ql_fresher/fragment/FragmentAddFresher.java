@@ -33,6 +33,7 @@ import com.google.firebase.storage.UploadTask;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Random;
 
 import edu.ptit.ql_fresher.AddActivity;
@@ -101,7 +102,7 @@ public class FragmentAddFresher extends Fragment {
         name= etName.getText().toString();
         email = etEmail.getText().toString();
         language = etLang.getText().toString();
-        center = etCenter.getText().toString();
+        center = etCenter.getText().toString().toUpperCase();
         if (center.isEmpty()) center = "None";
         dob = etDoB.getText().toString();
         if(imageUri==null){
@@ -196,9 +197,8 @@ public class FragmentAddFresher extends Fragment {
                             am.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
                             Toast.makeText(getActivity(), "Thêm thành công", Toast.LENGTH_SHORT).show();
                             Center center2 = db.getCenterByName(center);
-                            Toast.makeText(getActivity(),String.valueOf(center2.getTotalFresher()), Toast.LENGTH_SHORT).show();
                             center2.setTotalFresher(center2.getTotalFresher()+1);
-                            Toast.makeText(getActivity(),String.valueOf(center2.getTotalFresher()), Toast.LENGTH_SHORT).show();
+                            db.updateCenter(center2);
                             goBackToMainActivity();
                         }else{
                             Toast.makeText(getActivity(),

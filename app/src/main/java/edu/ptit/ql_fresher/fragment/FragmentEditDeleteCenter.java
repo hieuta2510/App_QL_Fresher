@@ -16,9 +16,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import edu.ptit.ql_fresher.AddActivity;
 import edu.ptit.ql_fresher.EditDeleteActivity;
 import edu.ptit.ql_fresher.R;
 import edu.ptit.ql_fresher.database.SQLiteHelper;
@@ -82,7 +79,7 @@ public class FragmentEditDeleteCenter extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         db.deleteCenter(Integer.toString(id));
-                        goBackToFragmentManageCenter();
+                        goBackToMainActivity();
                     }
                 });
                 AlertDialog dialog = builder.create();
@@ -93,7 +90,7 @@ public class FragmentEditDeleteCenter extends Fragment {
         btCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                goBackToFragmentManageCenter();
+                goBackToMainActivity();
             }
         });
         return mView;
@@ -119,7 +116,7 @@ public class FragmentEditDeleteCenter extends Fragment {
         db = new SQLiteHelper(getActivity());
         db.updateCenter(center);
         Toast.makeText(getActivity(), getResources().getString(R.string.toastSaveCenter), Toast.LENGTH_SHORT).show();
-        goBackToFragmentManageCenter();
+        goBackToMainActivity();
     }
 
     private void initView() {
@@ -132,7 +129,7 @@ public class FragmentEditDeleteCenter extends Fragment {
         btCancel = mView.findViewById(R.id.btCancelCenterEdit);
     }
 
-    private void goBackToFragmentManageCenter() {
+    private void goBackToMainActivity() {
         if (getActivity() instanceof EditDeleteActivity) {
             ((EditDeleteActivity) getActivity()).navigateBackToFragmentManageCenter();
         }
