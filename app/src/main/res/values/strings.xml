@@ -1,7 +1,7 @@
 <resources>
     <!--    login form-->
     <!--    <string name="app_name">QL_Fresher</string>-->
-    <string name="app_name">TMH App</string>
+    <string name="app_name">App QL Fresher</string>
     <string name="top_icon">TOP ICON</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
@@ -45,7 +45,7 @@
 
 
     <!--    mainmenu-->
-    <string name="main_funtion">All Function </string>
+    <string name="main_funtion">All Feature </string>
     <string name="hello">Hello, </string>
 
     <!--    home-->
@@ -97,6 +97,8 @@
 
     <!--    center-->
     <string name="tittleManageCenter">Manage Center</string>
+    <string name="dbCenter">Total number of centers:</string>
+
     <!--    dashboard-->
     <string name="tittleDashboard">Dashboard</string>
 
@@ -122,7 +124,7 @@
     <!--    profile-->
     <string name="personal_information">Personal information</string>
     <string name="contact_phone">+84888540843</string>
-    <string name="contact_facebook">Contact facebook</string>
+    <string name="contact_facebook">Contact us</string>
     <string name="logout">Logout</string>
     <string name="changePass">Change your password</string>
     <!--    programming language-->
@@ -141,5 +143,6 @@
     <string name="et_confirm_password">Confirm password</string>
     <string name="et_new_password">Enter your new password</string>
     <string name="et_old_password">Enter your old password</string>
+    <string name="welcome">Welcome to my app</string>
     <!-- TODO: Remove or change this placeholder text -->
 </resources>

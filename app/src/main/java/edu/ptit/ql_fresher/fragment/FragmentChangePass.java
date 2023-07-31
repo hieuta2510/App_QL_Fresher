@@ -63,7 +63,6 @@ public class FragmentChangePass extends Fragment {
                     SQLiteHelper db = new SQLiteHelper(getActivity());
                     User user1 = db.getUserByEmail(user.getEmail());
                     user1.setPassword(newPass);
-                    Toast.makeText(getActivity(), user1.getPassword(), Toast.LENGTH_SHORT).show();
                     db.updateUser(user1);
                     Toast.makeText(getActivity(), getResources().getString(R.string.toastChangeUser), Toast.LENGTH_SHORT).show();
                     FirebaseUser userFire = FirebaseAuth.getInstance().getCurrentUser();
@@ -128,6 +127,5 @@ public class FragmentChangePass extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        Toast.makeText(getActivity(), user.getPassword(), Toast.LENGTH_SHORT).show();
     }
 }

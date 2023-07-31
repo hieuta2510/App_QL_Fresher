@@ -1,6 +1,9 @@
 package edu.ptit.ql_fresher.fragment;
 
+import android.app.AlarmManager;
 import android.app.AlertDialog;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -38,6 +41,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 
 import edu.ptit.ql_fresher.EditDeleteActivity;
+import edu.ptit.ql_fresher.MyReceiver;
 import edu.ptit.ql_fresher.R;
 import edu.ptit.ql_fresher.database.SQLiteHelper;
 import edu.ptit.ql_fresher.model.Center;
@@ -105,12 +109,22 @@ public class FragmentEditDeleteFresher extends Fragment {
                 builder.setPositiveButton(getResources().getString(R.string.dialogDelBtOk), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.setTimeInMillis(System.currentTimeMillis());
+                        AlarmManager am = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
+
+                        Intent intent = new Intent(getActivity(),
+                                MyReceiver.class);
+                        intent.putExtra("myAction", "mDoNotifyDeleteFresher");
+                        intent.putExtra("fresherName",etName.getText().toString());
+                        PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(),
+                                5, intent, 0);
+                        am.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
                         deleteFresher();
                     }
                 });
                 AlertDialog dialog = builder.create();
                 dialog.show();
-
             }
         });
 
@@ -216,6 +230,17 @@ public class FragmentEditDeleteFresher extends Fragment {
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {
                         Toast.makeText(getActivity(),getResources().getString(R.string.toastUpdateSuccess), Toast.LENGTH_SHORT).show();
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.setTimeInMillis(System.currentTimeMillis());
+                        AlarmManager am = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
+
+                        Intent intent = new Intent(getActivity(),
+                                MyReceiver.class);
+                        intent.putExtra("myAction", "mDoNotifyUpdateFresher");
+                        intent.putExtra("fresherName",etName.getText().toString());
+                        PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(),
+                                4, intent, 0);
+                        am.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
                         updateCenterTotalFresherEdit(center);
                         goBackToMainActivity();
                     }
@@ -262,6 +287,17 @@ public class FragmentEditDeleteFresher extends Fragment {
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {
                         Toast.makeText(getActivity(),getResources().getString(R.string.toastUpdateSuccess), Toast.LENGTH_SHORT).show();
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.setTimeInMillis(System.currentTimeMillis());
+                        AlarmManager am = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
+
+                        Intent intent = new Intent(getActivity(),
+                                MyReceiver.class);
+                        intent.putExtra("myAction", "mDoNotifyUpdateFresher");
+                        intent.putExtra("fresherName",etName.getText().toString());
+                        PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(),
+                                4, intent, 0);
+                        am.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
                         updateCenterTotalFresherEdit(center);
                         goBackToMainActivity();
                     }

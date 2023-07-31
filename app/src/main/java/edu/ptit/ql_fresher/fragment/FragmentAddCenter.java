@@ -1,5 +1,9 @@
 package edu.ptit.ql_fresher.fragment;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +14,10 @@ import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
+import java.util.Calendar;
+
 import edu.ptit.ql_fresher.AddActivity;
+import edu.ptit.ql_fresher.MyReceiver;
 import edu.ptit.ql_fresher.R;
 import edu.ptit.ql_fresher.database.SQLiteHelper;
 import edu.ptit.ql_fresher.model.Center;
@@ -70,6 +77,17 @@ public class FragmentAddCenter extends Fragment {
     private void storeCenter(Center center) {
         db = new SQLiteHelper(getActivity());
         db.addCenter(center);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        AlarmManager am = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(getActivity(),
+                MyReceiver.class);
+        intent.putExtra("myAction", "mDoNotifyAddCenter");
+        intent.putExtra("acronym",acronym);
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(),
+                0, intent, 0);
+        am.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
         Toast.makeText(getActivity(), getResources().getString(R.string.toastSaveCenter), Toast.LENGTH_SHORT).show();
         goBackToMainActivity();
     }

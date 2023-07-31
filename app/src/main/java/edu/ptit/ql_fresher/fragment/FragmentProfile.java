@@ -1,6 +1,7 @@
 package edu.ptit.ql_fresher.fragment;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -82,8 +83,14 @@ public class FragmentProfile extends Fragment implements View.OnClickListener{
             intent.putExtra("user", user);
             startActivity(intent);
         } else if(v == phone){
+            Intent intent = new Intent(Intent.ACTION_DIAL);
+            intent.setData(Uri.parse("tel: 0888540843"));
+            startActivity(intent);
 
         } else if(v == facebook){
+            Intent intent = new Intent(Intent.ACTION_VIEW,
+                    Uri.parse("https://www.facebook.com/minhhieu.ta.5832"));
+            startActivity(intent);
 
         } else if(v == logout){
             mFirebaseAuth = FirebaseAuth.getInstance();

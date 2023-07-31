@@ -42,9 +42,10 @@ import edu.ptit.ql_fresher.model.Func;
 
 
 public class FragmentHome extends Fragment{
-    private FragmentManager fragmentManager;
     private RecyclerView recyclerView;
     private AdapterRecycleFunc adapter;
+    private ViewFlipper viewFlipper;
+    private AdapterViewFlip adapterViewFlip;
 
     @Nullable
     @Override
@@ -67,11 +68,43 @@ public class FragmentHome extends Fragment{
         gridLayoutManager.setOrientation(GridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(gridLayoutManager);
         recyclerView.setAdapter(adapter);
-        fragmentManager = getActivity().getSupportFragmentManager();
+        viewFlipper = view.findViewById(R.id.vfFragHome);
+        actionViewFlip();
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
+    private void actionViewFlip() {
+        List <Integer> lst = new ArrayList<>();
+        lst.add(R.drawable.cay_alone);
+        lst.add(R.drawable.mom_dophin);
+        adapterViewFlip = new AdapterViewFlip(getContext(), lst);
+        for(int i = 0; i < adapterViewFlip.getCount(); i++)
+        {
+            viewFlipper.addView(adapterViewFlip.getView(i,null,null));
+        }
+
+        viewFlipper.setFlipInterval(3000); // Chuyển đổi sau mỗi 2 giây
+        viewFlipper.setAutoStart(true); // Tự động chạy
+        final GestureDetector gestureDetector = new GestureDetector(getContext(), new GestureDetector.SimpleOnGestureListener() {
+            @Override
+            public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+                if (e1.getX() > e2.getX()) {
+                    // Kéo sang phải
+                    viewFlipper.showNext();
+                } else if (e1.getX() < e2.getX()) {
+                    // Kéo sang trái
+                    viewFlipper.showPrevious();
+                }
+                return super.onFling(e1, e2, velocityX, velocityY);
+            }
+        });
+
+        viewFlipper.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                gestureDetector.onTouchEvent(event);
+                return true;
+            }
+        });
+
     }
 }

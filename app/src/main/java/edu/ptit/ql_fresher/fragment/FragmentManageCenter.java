@@ -48,6 +48,7 @@ public class FragmentManageCenter extends Fragment {
         LinearLayoutManager manager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
         recycleView.setLayoutManager(manager);
         recycleView.setAdapter(adapter);
+        DBCenter.setText(getResources().getString(R.string.dbCenter) + " " + Integer.toString(mList.size()));
         add_center_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

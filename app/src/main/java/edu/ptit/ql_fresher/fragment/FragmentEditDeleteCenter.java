@@ -1,7 +1,11 @@
 package edu.ptit.ql_fresher.fragment;
 
+import android.app.AlarmManager;
 import android.app.AlertDialog;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +20,12 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import java.util.Calendar;
+
+import edu.ptit.ql_fresher.AddActivity;
 import edu.ptit.ql_fresher.EditDeleteActivity;
+import edu.ptit.ql_fresher.MainActivity;
+import edu.ptit.ql_fresher.MyReceiver;
 import edu.ptit.ql_fresher.R;
 import edu.ptit.ql_fresher.database.SQLiteHelper;
 import edu.ptit.ql_fresher.model.Center;
@@ -24,8 +33,8 @@ import edu.ptit.ql_fresher.model.Center;
 public class FragmentEditDeleteCenter extends Fragment {
     private View mView;
     private Center center;
-    private TextView tvDetailsCenter;
-    private EditText etAcronym, etName, etAddress;
+    private TextView tvDetailsCenter, etAcronym;
+    private EditText etName, etAddress;
     private String acronym, name, address;
     private int id = 1, totalFr = 0;
     private Button btUpdate, btDelete, btCancel;
@@ -78,6 +87,18 @@ public class FragmentEditDeleteCenter extends Fragment {
                 builder.setPositiveButton(getResources().getString(R.string.dialogDelBtOk), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.setTimeInMillis(System.currentTimeMillis());
+                        AlarmManager am = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
+
+                        Intent intent = new Intent(getActivity(),
+                                MyReceiver.class);
+                        intent.putExtra("myAction", "mDoNotifyDeleteCenter");
+                        intent.putExtra("acronym",db.getCenterById(Integer.toString(id)).getAcronym());
+
+                        PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(),
+                                2, intent, 0);
+                        am.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
                         db.deleteCenter(Integer.toString(id));
                         goBackToMainActivity();
                     }
@@ -116,6 +137,17 @@ public class FragmentEditDeleteCenter extends Fragment {
         db = new SQLiteHelper(getActivity());
         db.updateCenter(center);
         Toast.makeText(getActivity(), getResources().getString(R.string.toastSaveCenter), Toast.LENGTH_SHORT).show();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        AlarmManager am = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(getActivity(),
+                MyReceiver.class);
+        intent.putExtra("myAction", "mDoNotifyUpdateCenter");
+        intent.putExtra("acronym",acronym);
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(),
+                1, intent, 0);
+        am.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
         goBackToMainActivity();
     }
 

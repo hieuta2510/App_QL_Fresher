@@ -161,16 +161,16 @@ public class FragmentAddFresher extends Fragment {
     }
 
     private void saveFresherToDatabase(){
-        HashMap<String,Object> product=new HashMap<>();
-        product.put("key",TAG+randomKey);
-        product.put("name",name);
-        product.put("email", email);
-        product.put("language", language);
-        product.put("center", center);
-        product.put("dateOfBirth", dob);
-        product.put("score", "0");
-        product.put("image",downloadImgUrl);
-        myRef.child(TAG+randomKey).updateChildren(product)
+        HashMap<String,Object> fresher=new HashMap<>();
+        fresher.put("key",TAG+randomKey);
+        fresher.put("name",name);
+        fresher.put("email", email);
+        fresher.put("language", language);
+        fresher.put("center", center);
+        fresher.put("dateOfBirth", dob);
+        fresher.put("score", "0");
+        fresher.put("image",downloadImgUrl);
+        myRef.child(TAG+randomKey).updateChildren(fresher)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -178,19 +178,13 @@ public class FragmentAddFresher extends Fragment {
                             Calendar calendar = Calendar.getInstance();
                             calendar.setTimeInMillis(System.currentTimeMillis());
                             AlarmManager am = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
-
                             Intent intent = new Intent(getActivity(),
                                     MyReceiver.class);
-                            intent.putExtra("myAction", "mDoNotify");
-                            intent.putExtra("Name",name);
-                            intent.putExtra("Email",email);
-                            intent.putExtra("Language", language);
-                            intent.putExtra("Center", center);
-                            intent.putExtra("DateOfBirth", dob);
-                            intent.putExtra("Score", email);
+                            intent.putExtra("myAction", "mDoNotifyAddFresher");
+                            intent.putExtra("fresherName",name);
 
                             PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(),
-                                    0, intent, 0);
+                                    3, intent, 0);
                             am.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
                             Toast.makeText(getActivity(), "Thêm thành công", Toast.LENGTH_SHORT).show();
                             Center center2 = db.getCenterByName(center);

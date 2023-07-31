@@ -37,21 +37,6 @@
         <receiver
             android:name=".MyReceiver"
             android:exported="false" />
-
-        <activity
-            android:name=".AddFresherActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".EditDeleteFresherActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
         <activity
             android:name=".LoginActivity"
             android:exported="true">

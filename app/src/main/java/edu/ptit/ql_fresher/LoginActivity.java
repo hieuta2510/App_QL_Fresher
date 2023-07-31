@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,13 +35,16 @@ public class LoginActivity extends AppCompatActivity {
     private TextView tvForgetPass;
     protected FirebaseAuth mFirebaseAuth;
     private TextView tvRegister;
+    private ImageView logo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         initView();
+        ObjectAnimator animator = (ObjectAnimator) AnimatorInflater.loadAnimator(this, R.animator.img_animator);
+        animator.setTarget(logo);
+        animator.start();
         mFirebaseAuth = FirebaseAuth.getInstance();
-
         btLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -126,5 +130,6 @@ public class LoginActivity extends AppCompatActivity {
         etPass =findViewById(R.id.etPassReg);
         tvForgetPass =findViewById(R.id.forgotPassword);
         tvRegister = findViewById(R.id.tvRegisterUser);
+        logo = findViewById(R.id.img_logo);
     }
 }

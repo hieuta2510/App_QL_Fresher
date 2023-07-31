@@ -19,10 +19,8 @@ public class MyReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         if(intent.getStringExtra("myAction") != null &&
-                intent.getStringExtra("myAction").equals("mDoNotify")
-                && intent.getStringExtra("Name")!=null
-                && intent.getStringExtra("Price")!=null
-                && intent.getStringExtra("Description")!=null ){
+                intent.getStringExtra("myAction").equals("mDoNotifyAddCenter")
+                && intent.getStringExtra("acronym")!=null){
             Log.e("Rev","rev");
             NotificationManager manager =
                     (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
@@ -37,8 +35,8 @@ public class MyReceiver extends BroadcastReceiver {
             }
             NotificationCompat.Builder builder = new NotificationCompat.Builder(context,CHANNEL_ID)
                     .setSmallIcon(R.drawable.baseline_add_task_black_18dp)
-                    .setContentTitle(intent.getStringExtra("Name"))
-                    .setContentText(intent.getStringExtra("Price") + " " + intent.getStringExtra("Description"))
+                    .setContentTitle("App QL Fresher")
+                    .setContentText("Add new center: " + intent.getStringExtra("acronym"))
                     .setDefaults(NotificationCompat.DEFAULT_SOUND)
                     .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                     .setCategory(NotificationCompat.CATEGORY_ALARM)
@@ -49,6 +47,171 @@ public class MyReceiver extends BroadcastReceiver {
                     PendingIntent.getActivity(
                             context,
                             0, i,
+                            PendingIntent.FLAG_ONE_SHOT
+                    );
+            builder.setContentIntent(pendingIntent);
+            manager.notify(12345, builder.build());
+        } else if(intent.getStringExtra("myAction") != null &&
+                intent.getStringExtra("myAction").equals("mDoNotifyUpdateCenter")
+                && intent.getStringExtra("acronym")!=null){
+            Log.e("Rev","rev");
+            NotificationManager manager =
+                    (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                NotificationChannel channel1 = new NotificationChannel(
+                        CHANNEL_ID,
+                        "Channel 1",
+                        NotificationManager.IMPORTANCE_HIGH
+                );
+                channel1.setDescription("This is Channel 1");
+                manager.createNotificationChannel(channel1);
+            }
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(context,CHANNEL_ID)
+                    .setSmallIcon(R.drawable.baseline_add_task_black_18dp)
+                    .setContentTitle("App QL Fresher")
+                    .setContentText("Updated center: " + intent.getStringExtra("acronym"))
+                    .setDefaults(NotificationCompat.DEFAULT_SOUND)
+                    .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                    .setCategory(NotificationCompat.CATEGORY_ALARM)
+                    .setColor(Color.RED)
+                    .setAutoCancel(true);
+            Intent i = new Intent(context, MainActivity.class);
+            PendingIntent pendingIntent =
+                    PendingIntent.getActivity(
+                            context,
+                            1, i,
+                            PendingIntent.FLAG_ONE_SHOT
+                    );
+            builder.setContentIntent(pendingIntent);
+            manager.notify(12345, builder.build());
+        } else if(intent.getStringExtra("myAction") != null &&
+                intent.getStringExtra("myAction").equals("mDoNotifyDeleteCenter")
+                && intent.getStringExtra("acronym")!=null){
+            Log.e("Rev","rev");
+            NotificationManager manager =
+                    (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                NotificationChannel channel1 = new NotificationChannel(
+                        CHANNEL_ID,
+                        "Channel 1",
+                        NotificationManager.IMPORTANCE_HIGH
+                );
+                channel1.setDescription("This is Channel 1");
+                manager.createNotificationChannel(channel1);
+            }
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(context,CHANNEL_ID)
+                    .setSmallIcon(R.drawable.baseline_add_task_black_18dp)
+                    .setContentTitle("App QL Fresher")
+                    .setContentText("Deleted center: " + intent.getStringExtra("acronym"))
+                    .setDefaults(NotificationCompat.DEFAULT_SOUND)
+                    .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                    .setCategory(NotificationCompat.CATEGORY_ALARM)
+                    .setColor(Color.RED)
+                    .setAutoCancel(true);
+            Intent i = new Intent(context, MainActivity.class);
+            PendingIntent pendingIntent =
+                    PendingIntent.getActivity(
+                            context,
+                            2, i,
+                            PendingIntent.FLAG_ONE_SHOT
+                    );
+            builder.setContentIntent(pendingIntent);
+            manager.notify(12345, builder.build());
+        } else if(intent.getStringExtra("myAction") != null &&
+                intent.getStringExtra("myAction").equals("mDoNotifyAddFresher")
+                && intent.getStringExtra("fresherName")!=null){
+            Log.e("Rev","rev");
+            NotificationManager manager =
+                    (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                NotificationChannel channel1 = new NotificationChannel(
+                        CHANNEL_ID,
+                        "Channel 1",
+                        NotificationManager.IMPORTANCE_HIGH
+                );
+                channel1.setDescription("This is Channel 1");
+                manager.createNotificationChannel(channel1);
+            }
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(context,CHANNEL_ID)
+                    .setSmallIcon(R.drawable.baseline_add_task_black_18dp)
+                    .setContentTitle("App QL Fresher")
+                    .setContentText("Add new fresher: " + intent.getStringExtra("fresherName"))
+                    .setDefaults(NotificationCompat.DEFAULT_SOUND)
+                    .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                    .setCategory(NotificationCompat.CATEGORY_ALARM)
+                    .setColor(Color.RED)
+                    .setAutoCancel(true);
+            Intent i = new Intent(context, MainActivity.class);
+            PendingIntent pendingIntent =
+                    PendingIntent.getActivity(
+                            context,
+                            3, i,
+                            PendingIntent.FLAG_ONE_SHOT
+                    );
+            builder.setContentIntent(pendingIntent);
+            manager.notify(12345, builder.build());
+        }else if(intent.getStringExtra("myAction") != null &&
+                intent.getStringExtra("myAction").equals("mDoNotifyUpdateFresher")
+                && intent.getStringExtra("fresherName")!=null){
+            Log.e("Rev","rev");
+            NotificationManager manager =
+                    (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                NotificationChannel channel1 = new NotificationChannel(
+                        CHANNEL_ID,
+                        "Channel 1",
+                        NotificationManager.IMPORTANCE_HIGH
+                );
+                channel1.setDescription("This is Channel 1");
+                manager.createNotificationChannel(channel1);
+            }
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(context,CHANNEL_ID)
+                    .setSmallIcon(R.drawable.baseline_add_task_black_18dp)
+                    .setContentTitle("App QL Fresher")
+                    .setContentText("Updated fresher: " + intent.getStringExtra("fresherName"))
+                    .setDefaults(NotificationCompat.DEFAULT_SOUND)
+                    .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                    .setCategory(NotificationCompat.CATEGORY_ALARM)
+                    .setColor(Color.RED)
+                    .setAutoCancel(true);
+            Intent i = new Intent(context, MainActivity.class);
+            PendingIntent pendingIntent =
+                    PendingIntent.getActivity(
+                            context,
+                            4, i,
+                            PendingIntent.FLAG_ONE_SHOT
+                    );
+            builder.setContentIntent(pendingIntent);
+            manager.notify(12345, builder.build());
+        } else if(intent.getStringExtra("myAction") != null &&
+                intent.getStringExtra("myAction").equals("mDoNotifyDeleteFresher")
+                && intent.getStringExtra("fresherName")!=null){
+            Log.e("Rev","rev");
+            NotificationManager manager =
+                    (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                NotificationChannel channel1 = new NotificationChannel(
+                        CHANNEL_ID,
+                        "Channel 1",
+                        NotificationManager.IMPORTANCE_HIGH
+                );
+                channel1.setDescription("This is Channel 1");
+                manager.createNotificationChannel(channel1);
+            }
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(context,CHANNEL_ID)
+                    .setSmallIcon(R.drawable.baseline_add_task_black_18dp)
+                    .setContentTitle("App QL Fresher")
+                    .setContentText("Deleted fresher: " + intent.getStringExtra("fresherName"))
+                    .setDefaults(NotificationCompat.DEFAULT_SOUND)
+                    .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                    .setCategory(NotificationCompat.CATEGORY_ALARM)
+                    .setColor(Color.RED)
+                    .setAutoCancel(true);
+            Intent i = new Intent(context, MainActivity.class);
+            PendingIntent pendingIntent =
+                    PendingIntent.getActivity(
+                            context,
+                            5, i,
                             PendingIntent.FLAG_ONE_SHOT
                     );
             builder.setContentIntent(pendingIntent);
