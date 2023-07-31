@@ -5,16 +5,18 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
-import edu.ptit.ql_fresher.fragment.FragmentManageFresher;
-import edu.ptit.ql_fresher.fragment.FragmentManageCenter;
-import edu.ptit.ql_fresher.fragment.FragmentHome;
 import edu.ptit.ql_fresher.fragment.FragmentDashboard;
+import edu.ptit.ql_fresher.fragment.FragmentHome;
+import edu.ptit.ql_fresher.fragment.FragmentManageCenter;
+import edu.ptit.ql_fresher.fragment.FragmentManageFresher;
 import edu.ptit.ql_fresher.fragment.FragmentProfile;
+import edu.ptit.ql_fresher.model.User;
 
 public class ViewPagerAdapter extends FragmentStatePagerAdapter {
-
-    public ViewPagerAdapter(@NonNull FragmentManager fm, int behavior) {
+    private User user = new User();
+    public ViewPagerAdapter(@NonNull FragmentManager fm, int behavior, User user) {
         super(fm, behavior);
+        this.user = user;
     }
 
     @NonNull
@@ -25,7 +27,7 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
             case 1:return new FragmentManageCenter();
             case 2:return new FragmentHome();
             case 3:return new FragmentDashboard();
-            case 4:return new FragmentProfile();
+            case 4:return new FragmentProfile(user);
         }
         return null;
     }

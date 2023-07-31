@@ -2,7 +2,7 @@ package edu.ptit.ql_fresher.model;
 
 import java.io.Serializable;
 
-public class Center implements Serializable {
+public class Center implements Serializable, Comparable<Center> {
     private int id;
     private String acronym;
     private String name;
@@ -77,5 +77,11 @@ public class Center implements Serializable {
                 ", address='" + address + '\'' +
                 ", totalFresher=" + totalFresher +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Center center2) {
+        if (this.id >= center2.id) return 1;
+        return 0;
     }
 }

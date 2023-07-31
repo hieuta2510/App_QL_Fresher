@@ -7,8 +7,10 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Context;
@@ -17,6 +19,7 @@ import android.os.Bundle;
 import android.util.AttributeSet;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -24,22 +27,28 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
 import edu.ptit.ql_fresher.adapter.ViewPagerAdapter;
+import edu.ptit.ql_fresher.database.SQLiteHelper;
 import edu.ptit.ql_fresher.fragment.FragmentHome;
 import edu.ptit.ql_fresher.fragment.FragmentManageFresher;
+import edu.ptit.ql_fresher.fragment.FragmentProfile;
+import edu.ptit.ql_fresher.model.User;
 
 public class MainActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private BottomNavigationView navigationView;
     private String key = "";
+    private SQLiteHelper db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Intent intent = getIntent();
+        key = intent.getStringExtra("email");
         viewPager = findViewById(R.id.viewPager);
         navigationView = findViewById(R.id.bottom_nav);
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager(),
-                FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+                FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, getUser());
         viewPager.setAdapter(adapter);
         viewPager.setCurrentItem(2);
         navigationView.getMenu().findItem(R.id.nav_home).setChecked(true);
@@ -115,6 +124,13 @@ public class MainActivity extends AppCompatActivity {
 
             super.onBackPressed();
         }
+    }
+
+    private User getUser()
+    {
+        db = new SQLiteHelper(this);
+        User user = db.getUserByEmail(key);
+        return user;
     }
 
 }

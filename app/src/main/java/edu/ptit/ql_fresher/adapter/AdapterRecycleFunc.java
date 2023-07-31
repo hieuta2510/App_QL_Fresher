@@ -3,7 +3,6 @@ package edu.ptit.ql_fresher.adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -13,8 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.ptit.ql_fresher.model.Func;
 import edu.ptit.ql_fresher.R;
+import edu.ptit.ql_fresher.model.Func;
 
 public class AdapterRecycleFunc extends RecyclerView.Adapter<AdapterRecycleFunc.HomeViewHolder>{
     private List <Func> list;

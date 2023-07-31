@@ -10,6 +10,14 @@
     <string name="Cancel">Cancel</string>
     <string name="navigation_drawer_open">Open Navigation Drawer</string>
     <string name="navigation_drawer_close">Close navigation Drawer</string>
+    <string name="regiserNewUser">New User? Register Now</string>
+
+    <!--    register-->
+    <string name="tvRegister">Register</string>
+    <string name="tvFullname">Fullname</string>
+    <string name="tvDateOfBirth">Date of Birth</string>
+    <string name="toastRegisterSuccess">Register Successfully</string>
+    <string name="toastRegisterFail">Register Failed</string>
 
     <!--    toast-->
     <string name="toastSuccess">Login Successfully</string>
@@ -21,6 +29,10 @@
     <string name="toastSaveURL">Saved URL!</string>
     <string name="toastSaveCenter">Saved Center!</string>
     <string name="toastFail">Fail!</string>
+    <string name="toastChangeEmail">Can not change your email!</string>
+    <string name="toastChangeUser">Updated User!</string>
+    <string name="toastIncorrectOldPass">Incorrect old password</string>
+    <string name="toastIncorrectConfirmPass">Incorrect confirm password</string>
 
     <!--    menu-->
     <string name="menu_manageCenter"> Center </string>
@@ -85,6 +97,8 @@
 
     <!--    center-->
     <string name="tittleManageCenter">Manage Center</string>
+    <!--    dashboard-->
+    <string name="tittleDashboard">Dashboard</string>
 
     <!--    add center-->
     <string name="tittleAddCenter">Add New Center</string>
@@ -102,9 +116,15 @@
     <string name="dialogDelCenTit">Delete Center</string>
     <string name="dialogDelCenMes">Are you sure to remove this center</string>
 
-<!--    details-->
+    <!--    details-->
     <string name="svFresher">Enter fresher email</string>
 
+    <!--    profile-->
+    <string name="personal_information">Personal information</string>
+    <string name="contact_phone">+84888540843</string>
+    <string name="contact_facebook">Contact facebook</string>
+    <string name="logout">Logout</string>
+    <string name="changePass">Change your password</string>
     <!--    programming language-->
     <string-array name="spProgramLang">
         <item>Java</item>
@@ -112,6 +132,14 @@
         <item>JS</item>
         <item>Python</item>
     </string-array>
+    <string name="titleDetailsUser">Your Infomation</string>
+    <string name="titleChangePass">Change your password</string>
+    <string name="tvEmail">Email</string>
+    <string name="old_password">Old password</string>
+    <string name="new_password">New password</string>
+    <string name="confirm_password">Confirm pass</string>
+    <string name="et_confirm_password">Confirm password</string>
+    <string name="et_new_password">Enter your new password</string>
+    <string name="et_old_password">Enter your old password</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

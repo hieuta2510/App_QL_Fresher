@@ -2,24 +2,17 @@ package edu.ptit.ql_fresher.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.List;
 
 import edu.ptit.ql_fresher.EditDeleteActivity;
 import edu.ptit.ql_fresher.R;
-import edu.ptit.ql_fresher.fragment.FragmentEditDeleteCenter;
 import edu.ptit.ql_fresher.model.Center;
 import edu.ptit.ql_fresher.viewholder.CenterViewHolder;
 

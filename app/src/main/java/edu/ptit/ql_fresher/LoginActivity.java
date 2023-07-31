@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.animation.AnimatorInflater;
 import android.animation.ObjectAnimator;
@@ -24,12 +26,14 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class LoginActivity extends AppCompatActivity {
 
+public class LoginActivity extends AppCompatActivity {
+    private final static int REQUEST_CODE_REGISTER=10000;
     private Button btLogin;
     private EditText etEmail, etPass;
     private TextView tvForgetPass;
     protected FirebaseAuth mFirebaseAuth;
+    private TextView tvRegister;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,6 +91,33 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
+
+        tvRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(LoginActivity.this,
+                        RegisterActivity.class);
+                startActivityForResult(intent,REQUEST_CODE_REGISTER);
+            }
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode,
+                                    int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == REQUEST_CODE_REGISTER) {
+            if(resultCode == Activity.RESULT_OK) {
+                // Nhận dữ liệu từ Intent trả về
+                final String email = data.getStringExtra("email");
+                final String password = data.getStringExtra("pass");
+                //Set lại giá trị cho txtEmail and password
+                etEmail.setText(email);
+                etPass.setText(password);
+            } else {
+                Toast.makeText(this, getResources().getString(R.string.toastError), Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
     private void initView() {
@@ -94,5 +125,6 @@ public class LoginActivity extends AppCompatActivity {
         etEmail =findViewById(R.id.etEmailReg);
         etPass =findViewById(R.id.etPassReg);
         tvForgetPass =findViewById(R.id.forgotPassword);
+        tvRegister = findViewById(R.id.tvRegisterUser);
     }
 }

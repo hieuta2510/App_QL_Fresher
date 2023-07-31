@@ -18,15 +18,16 @@
         android:layout_width="230dp"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
         <TextView
             android:id="@+id/tvNameit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:textSize="17dp"
-            android:textColor="#000C5D"
             android:text="Ta Minh Hieu"
-            android:textStyle="bold"
-            android:layout_width="160dp"
-            android:layout_height="wrap_content" />
+            android:textColor="#000C5D"
+            android:textSize="17dp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tvEmailit"
@@ -49,6 +50,7 @@
             android:gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="#000C5D"
             android:text="Java, Pythom"/>
         <TextView
             android:id="@+id/tvCenterit"
@@ -57,6 +59,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="VMO"
+            android:textColor="#000C5D"
             android:textSize="17dp"/>
 
     </LinearLayout>

@@ -354,7 +354,7 @@ public class FragmentEditDeleteFresher extends Fragment {
         }
         score = (score1 + score2 + score3) / count;
         
-        return String.format("%.2f", score);
+        return String.format("%.2f", score).replace(",", ".");
     }
 
     @Override
