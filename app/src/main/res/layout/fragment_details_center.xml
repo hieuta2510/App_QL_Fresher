@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    tools:context=".EditDeleteActivity">
+    tools:context=".activity.EditDeleteActivity">
     <View
         android:id="@+id/topView"
         android:layout_width="match_parent"

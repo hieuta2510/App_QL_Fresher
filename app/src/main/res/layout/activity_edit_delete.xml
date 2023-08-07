@@ -5,6 +5,6 @@
     android:id="@+id/frameEditDelete"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".EditDeleteActivity">
+    tools:context=".activity.EditDeleteActivity">
 
 </androidx.constraintlayout.widget.ConstraintLayout>

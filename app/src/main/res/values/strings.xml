@@ -144,5 +144,15 @@
     <string name="et_new_password">Enter your new password</string>
     <string name="et_old_password">Enter your old password</string>
     <string name="welcome">Welcome to my app</string>
+    <string name="toast_center_exists">The center already exists!</string>
+    <string name="toast_fresher_exists">The fresher email already exists!</string>
+
+<!--    reciver-->
+    <string name="add_new_fresher">Add new fresher:</string>
+    <string name="edit_fresher">Updated fresher:</string>
+    <string name="delete_fresher">Delete fresher:</string>
+    <string name="add_new_center">Add new center:</string>
+    <string name="edit_center">Updated center:</string>
+    <string name="delete_center">Delete center:</string>
     <!-- TODO: Remove or change this placeholder text -->
 </resources>
