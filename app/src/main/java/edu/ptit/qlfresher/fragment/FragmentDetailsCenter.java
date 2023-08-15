@@ -37,7 +37,6 @@ import edu.ptit.qlfresher.model.Fresher;
 public class FragmentDetailsCenter extends Fragment implements androidx.appcompat.widget.SearchView.OnQueryTextListener {
     private View mView;
     private TextView tvAcronym, tvAdd, tvName, tvDB;
-    private Button btSearch;
     private RecyclerView recycleFresher;
     private AdapterFresher adapter;
     private List<Fresher> mList;
@@ -91,7 +90,6 @@ public class FragmentDetailsCenter extends Fragment implements androidx.appcompa
         tvAdd = view.findViewById(R.id.tvAddDetails);
         tvName = view.findViewById(R.id.tvNameDetails);
         tvDB = view.findViewById(R.id.tvDBDetails);
-        btSearch = view.findViewById(R.id.btAddDetails);
         recycleFresher = view.findViewById(R.id.recycleFresherDetails);
         searchView = view.findViewById(R.id.searchFresherDetails);
         btAddFresher = view.findViewById(R.id.btAddDetails);
@@ -151,7 +149,7 @@ public class FragmentDetailsCenter extends Fragment implements androidx.appcompa
         });
     }
 
-    private void filter(String email) {
+    private void filterFresher(String email) {
         getAllFresher();
         List<Fresher> filterlist = new ArrayList<>();
         for (Fresher fresher2 : mList)
@@ -184,7 +182,7 @@ public class FragmentDetailsCenter extends Fragment implements androidx.appcompa
     @Override
     public boolean onQueryTextChange(String email) {
         if(!email.trim().isEmpty()) {
-            filter(email.toLowerCase());
+            filterFresher(email.toLowerCase());
         } else
         {
             getFresherOfCenter();

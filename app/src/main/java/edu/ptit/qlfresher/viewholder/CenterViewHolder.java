@@ -7,7 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import edu.ptit.qlfresher.R;
-import edu.ptit.qlfresher.model.ItemClickListener;
+import edu.ptit.qlfresher.modelinterface.ItemClickListener;
 
 public class CenterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         public TextView tvAcronym, tvName, tvAdd, tvTotal;

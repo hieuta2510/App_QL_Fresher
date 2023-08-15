@@ -14,6 +14,7 @@ import java.util.List;
 import edu.ptit.qlfresher.activity.EditDeleteActivity;
 import edu.ptit.qlfresher.R;
 import edu.ptit.qlfresher.model.Center;
+import edu.ptit.qlfresher.model.Fresher;
 import edu.ptit.qlfresher.viewholder.CenterViewHolder;
 
 public class AdapterCenter extends RecyclerView.Adapter<CenterViewHolder> {
@@ -27,6 +28,12 @@ public class AdapterCenter extends RecyclerView.Adapter<CenterViewHolder> {
 
     public void setList(List<Center> mList) {
         this.mList = mList;
+        notifyDataSetChanged();
+    }
+
+    public void filterList(List<Center> filterlist)
+    {
+        mList = filterlist;
         notifyDataSetChanged();
     }
 

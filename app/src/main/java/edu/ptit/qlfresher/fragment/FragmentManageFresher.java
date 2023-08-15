@@ -191,10 +191,10 @@ public class FragmentManageFresher extends Fragment {
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
                     Fresher fresher = dataSnapshot1.getValue(Fresher.class);
                     String language = fresher.getLanguage();
-                    String[] langList = language.toLowerCase().split(",");
+                    String[] langList = language.toUpperCase().split(",");
                     for(String i : langList)
                     {
-                        if(i.trim().equals(key.toLowerCase())) {
+                        if(i.trim().equals(key.toUpperCase())) {
                             mList.add(fresher);
                         }
                     }

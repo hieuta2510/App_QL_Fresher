@@ -27,7 +27,7 @@ public class FragmentChangePass extends Fragment {
     private EditText etOldPass, etNewPass, etConfirmPass;
     private Button btUpdate, btCancel;
     private User user = new User();
-    private String oldPass = "", newPass,  confirmPass;
+    private String oldPass = "", newPass,  confirmPass, inputOldpass;
 
     public FragmentChangePass() {
         // Required empty public constructor
@@ -55,9 +55,10 @@ public class FragmentChangePass extends Fragment {
         btUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                inputOldpass = etOldPass.getText().toString();
                 newPass = etNewPass.getText().toString();
                 confirmPass = etConfirmPass.getText().toString();
-                if(validatePass())
+                if(validatePass(oldPass, inputOldpass, newPass, confirmPass))
                 {
                     SQLiteHelper db = new SQLiteHelper(getActivity());
                     User user1 = db.getUserByEmail(user.getEmail());
@@ -106,14 +107,13 @@ public class FragmentChangePass extends Fragment {
         }
     }
 
-    private boolean validatePass()
+    protected boolean validatePass(String trueOldPass, String inputOldPass, String newPass, String confirmPass)
     {
-        if(!etOldPass.getText().toString().equals(oldPass))
+        if(!inputOldPass.equals(trueOldPass))
         {
             Toast.makeText(getActivity(), getResources().getString(R.string.toastIncorrectOldPass), Toast.LENGTH_SHORT).show();
             return false;
-        } else
-        {
+        } else {
             if(!newPass.equals(confirmPass))
             {
                 Toast.makeText(getActivity(), getResources().getString(R.string.toastIncorrectConfirmPass), Toast.LENGTH_SHORT).show();

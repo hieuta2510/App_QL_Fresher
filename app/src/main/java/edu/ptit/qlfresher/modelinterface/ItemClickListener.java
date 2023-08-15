@@ -1,4 +1,4 @@
-package edu.ptit.qlfresher.model;
+package edu.ptit.qlfresher.modelinterface;
 
 import android.view.View;
 

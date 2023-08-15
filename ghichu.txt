@@ -1,1 +1,2 @@
 xử lý thêm, sửa center của fresher chưa có trong danh sách
+pie chart them None

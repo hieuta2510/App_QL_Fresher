@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".activity.MainActivity">
 
     <View
         android:id="@+id/topView"
@@ -53,6 +53,35 @@
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/topText" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle">
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/searchCenter"
+            android:layout_width="265dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="0dp"
+            android:background="@drawable/bgbuttoncancel"
+            app:iconifiedByDefault="false"
+            app:layout_constraintTop_toBottomOf="@id/tvLogin"
+            app:queryHint="@string/etHintCenterSearch" />
+        <Button
+            android:id="@+id/btSearchCenter"
+            android:layout_width="95dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/bgbuttoncreate"
+            android:gravity="center"
+            android:text="@string/btSearch"
+            android:textColor="@android:color/white"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/tvDBCenter"

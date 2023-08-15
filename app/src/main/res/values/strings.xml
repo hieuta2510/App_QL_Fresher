@@ -1,7 +1,7 @@
 <resources>
     <!--    login form-->
     <!--    <string name="app_name">QL_Fresher</string>-->
-    <string name="app_name">App QL Fresher</string>
+    <string name="app_name">Management App</string>
     <string name="top_icon">TOP ICON</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
@@ -62,10 +62,10 @@
     <string name="dashboard">Total number of freshers: </string>
     <string name="val_img">Select picture, pls</string>
     <string name="val_name">Enter name, pls</string>
-    <string name="val_email">Enter email, pls</string>
-    <string name="val_lang">Enter language, pls</string>
-    <string name="val_center">Enter center, pls</string>
-    <string name="val_dob">Select DoBw, pls</string>
+    <string name="val_email">Invalid email, pls</string>
+    <string name="val_lang">Language cannot be empty or invalid</string>
+    <string name="val_center">Center cannot be empty or invalid</string>
+    <string name="val_dob">Invalid DoB</string>
     <string name="val_score">Enter score, pls</string>
 
     <!--    add fresher-->
@@ -98,6 +98,7 @@
     <!--    center-->
     <string name="tittleManageCenter">Manage Center</string>
     <string name="dbCenter">Total number of centers:</string>
+    <string name="etHintCenterSearch">Enter center name</string>
 
     <!--    dashboard-->
     <string name="tittleDashboard">Dashboard</string>

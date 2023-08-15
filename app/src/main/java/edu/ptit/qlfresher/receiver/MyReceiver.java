@@ -24,32 +24,32 @@ public class MyReceiver extends BroadcastReceiver {
         if(intent.getStringExtra("myAction") != null &&
                 intent.getStringExtra("myAction").equals("mDoNotifyAddCenter")
                 && intent.getStringExtra("acronym")!=null){
-            String contentValue = intent.getStringExtra("acronym") + " " + context.getResources().getString(R.string.add_new_center);
+            String contentValue = context.getResources().getString(R.string.add_new_center) + " " + intent.getStringExtra("acronym");
             setNotify(context, contentValue, 0);
         } else if(intent.getStringExtra("myAction") != null &&
                 intent.getStringExtra("myAction").equals("mDoNotifyUpdateCenter")
                 && intent.getStringExtra("acronym")!=null){
-            String contentValue = intent.getStringExtra("acronym") + " " + context.getResources().getString(R.string.edit_center);
+            String contentValue = context.getResources().getString(R.string.edit_center) + " " + intent.getStringExtra("acronym");
             setNotify(context, contentValue, 1);
         } else if(intent.getStringExtra("myAction") != null &&
                 intent.getStringExtra("myAction").equals("mDoNotifyDeleteCenter")
                 && intent.getStringExtra("acronym")!=null){
-            String contentValue = intent.getStringExtra("acronym") + " " + context.getResources().getString(R.string.delete_center);
+            String contentValue = context.getResources().getString(R.string.delete_center) + " " + intent.getStringExtra("acronym");
             setNotify(context, contentValue, 2);
         } else if(intent.getStringExtra("myAction") != null &&
                 intent.getStringExtra("myAction").equals("mDoNotifyAddFresher")
                 && intent.getStringExtra("fresherName")!=null){
-            String contentValue = intent.getStringExtra("fresherName") + " " + context.getResources().getString(R.string.add_new_fresher);
+            String contentValue = context.getResources().getString(R.string.add_new_fresher) + " " + intent.getStringExtra("fresherName");
             setNotify(context, contentValue, 3);
         }else if(intent.getStringExtra("myAction") != null &&
                 intent.getStringExtra("myAction").equals("mDoNotifyUpdateFresher")
                 && intent.getStringExtra("fresherName")!=null){
-            String contentValue = intent.getStringExtra("fresherName") + " " + context.getResources().getString(R.string.edit_fresher);
+            String contentValue = context.getResources().getString(R.string.edit_fresher) + " " + intent.getStringExtra("fresherName");
             setNotify(context, contentValue, 4);
         } else if(intent.getStringExtra("myAction") != null &&
                 intent.getStringExtra("myAction").equals("mDoNotifyDeleteFresher")
                 && intent.getStringExtra("fresherName")!=null){
-            String contentValue = intent.getStringExtra("fresherName") + " " + context.getResources().getString(R.string.delete_fresher);
+            String contentValue = context.getResources().getString(R.string.delete_fresher) + " " + intent.getStringExtra("fresherName");
             setNotify(context, contentValue, 5);
         }
     }

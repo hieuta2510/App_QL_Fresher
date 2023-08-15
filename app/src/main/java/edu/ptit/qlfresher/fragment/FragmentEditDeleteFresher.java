@@ -2,6 +2,7 @@ package edu.ptit.qlfresher.fragment;
 
 import android.app.AlarmManager;
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -12,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -36,11 +38,20 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import edu.ptit.qlfresher.activity.EditDeleteActivity;
+import edu.ptit.qlfresher.model.Fresher;
 import edu.ptit.qlfresher.receiver.MyReceiver;
 import edu.ptit.qlfresher.R;
 import edu.ptit.qlfresher.database.SQLiteHelper;
@@ -60,6 +71,7 @@ public class FragmentEditDeleteFresher extends Fragment {
     private DatabaseReference myRef;
     private StorageReference imgRef;
     private SQLiteHelper db;
+    private int mYear, mMonth, mDay;
     private String oldCenterName = "";
 
     @Override
@@ -86,6 +98,29 @@ public class FragmentEditDeleteFresher extends Fragment {
                 openGallery();
             }
         });
+
+        etDoB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Calendar c = Calendar.getInstance();
+                mYear = c.get(Calendar.YEAR) / 1000 * 1000;
+                mMonth = c.get(Calendar.MONTH);
+                mDay = c.get(Calendar.DAY_OF_MONTH);
+                DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(),
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                                String day = String.valueOf(dayOfMonth), mon = String.valueOf(month);
+                                if(dayOfMonth < 10) day = "0" + dayOfMonth;
+                                if(month < 9) mon = "0" + month;
+                                String ns = day + "/" + mon + "/" + year;
+                                etDoB.setText(ns);
+                            }
+                        }, mYear, mMonth, mDay);
+                datePickerDialog.show();
+            }
+        });
+
         btUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -94,7 +129,7 @@ public class FragmentEditDeleteFresher extends Fragment {
                     storeImg();
                 }
                 else {
-                    editFresher2();
+                    validateData(false);
                 }
             }
         });
@@ -186,102 +221,61 @@ public class FragmentEditDeleteFresher extends Fragment {
                         downloadImgUrl=task.getResult().toString();
                         Toast.makeText(getActivity(),
                                 getResources().getString(R.string.toastSaveURL), Toast.LENGTH_SHORT).show();
-                        editFresher();
+                        validateData(true);
                     }
                 });
             }
         });
     }
 
-    private void editFresher() {
+    private void validateData(boolean editedImage){
         String name = etName.getText().toString();
         String email = etEmail.getText().toString();
         String lang = etLang.getText().toString();
         String center = etCenter.getText().toString().trim().toUpperCase();
         String dob = etDoB.getText().toString();
         String score = tvScore.getText().toString().substring(7);
-        if (name.isEmpty()) {
+        if (name.isEmpty() || !validateName(name)) {
             Toast.makeText(getActivity(),getResources().getString(R.string.val_name), Toast.LENGTH_SHORT).show();
-        } else if (email.isEmpty()) {
+        } else if (email.isEmpty() || !validateEmail(email)) {
             Toast.makeText(getActivity(),getResources().getString(R.string.val_email), Toast.LENGTH_SHORT).show();
-        }else if (lang.isEmpty()) {
+        }else if (lang.isEmpty() || !validateLang(lang)) {
             Toast.makeText(getActivity(),getResources().getString(R.string.val_lang), Toast.LENGTH_SHORT).show();
-        }else if (center.isEmpty()) {
+        }else if (center.isEmpty() || !validateCenter(center)) {
             Toast.makeText(getActivity(),getResources().getString(R.string.val_center), Toast.LENGTH_SHORT).show();
-        }else if (dob.isEmpty()) {
+        }else if (dob.isEmpty() || !validateDoB(dob, "dd/MM/yyyy")) {
             Toast.makeText(getActivity(),getResources().getString(R.string.val_dob), Toast.LENGTH_SHORT).show();
-        } else {
+        } else{
             if (!etScore1.getText().toString().isEmpty()
                     || !etScore2.getText().toString().isEmpty()
                     || !etScore3.getText().toString().isEmpty()) {
-                score = scoreFresher();
+                score = scoreFresher(etScore1.getText().toString(), etScore2.getText().toString(), etScore3.getText().toString());
             }
-            HashMap<String, Object> fresher = new HashMap<>();
-            fresher.put("key", key);
-            fresher.put("name", name);
-            fresher.put("email", email);
-            fresher.put("language", lang);
-            fresher.put("center", center);
-            fresher.put("dateOfBirth", dob);
-            fresher.put("score", score);
-            fresher.put("image", downloadImgUrl);
-            myRef.updateChildren(fresher).addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    if (task.isSuccessful()) {
-                        Toast.makeText(getActivity(),getResources().getString(R.string.toastUpdateSuccess), Toast.LENGTH_SHORT).show();
-                        Calendar calendar = Calendar.getInstance();
-                        calendar.setTimeInMillis(System.currentTimeMillis());
-                        AlarmManager am = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
-
-                        Intent intent = new Intent(getActivity(),
-                                MyReceiver.class);
-                        intent.putExtra("myAction", "mDoNotifyUpdateFresher");
-                        intent.putExtra("fresherName",etName.getText().toString());
-                        PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(),
-                                4, intent, 0);
-                        am.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
-                        updateCenterTotalFresherEdit(center);
-                        goBackToMainActivity();
-                    }
-                }
-            });
+            Fresher fresher = new Fresher();
+            if (editedImage == true)
+            {
+                fresher = new Fresher(key, name, email, lang, center, dob, downloadImgUrl, score);
+                editFresherClickImage(fresher);
+            }
+            else
+            {
+                fresher = new Fresher(key, name, email, lang, center, dob,"", score);
+                editFresherNoImage(fresher);
+            }
         }
     }
 
-    private void editFresher2() {
-        String name = etName.getText().toString();
-        String email = etEmail.getText().toString();
-        String lang = etLang.getText().toString();
-        String center = etCenter.getText().toString().trim().toUpperCase();
-        String dob = etDoB.getText().toString();
-        String score = tvScore.getText().toString().substring(7);
-        if (name.isEmpty()) {
-            Toast.makeText(getActivity(),getResources().getString(R.string.val_name), Toast.LENGTH_SHORT).show();
-        } else if (email.isEmpty()) {
-            Toast.makeText(getActivity(),getResources().getString(R.string.val_email), Toast.LENGTH_SHORT).show();
-        }else if (lang.isEmpty()) {
-            Toast.makeText(getActivity(),getResources().getString(R.string.val_lang), Toast.LENGTH_SHORT).show();
-        }else if (center.isEmpty()) {
-            Toast.makeText(getActivity(),getResources().getString(R.string.val_center), Toast.LENGTH_SHORT).show();
-        }else if (dob.isEmpty()) {
-            Toast.makeText(getActivity(),getResources().getString(R.string.val_dob), Toast.LENGTH_SHORT).show();
-        }else if (score.isEmpty()) {
-            Toast.makeText(getActivity(),getResources().getString(R.string.val_score), Toast.LENGTH_SHORT).show();
-        } else {
-            if (!etScore1.getText().toString().isEmpty()
-                    || !etScore2.getText().toString().isEmpty()
-                    || !etScore3.getText().toString().isEmpty()) {
-                score = scoreFresher();
-            }
-            HashMap<String, Object> fresher = new HashMap<>();
+    private void editFresherClickImage(Fresher editedFresher) {
+        HashMap<String, Object> fresher = new HashMap<>();
             fresher.put("key", key);
-            fresher.put("name", name);
-            fresher.put("email", email);
-            fresher.put("language", lang);
-            fresher.put("center", center);
-            fresher.put("dateOfBirth", dob);
-            fresher.put("score", score);
+            fresher.put("name", editedFresher.getName());
+            fresher.put("email", editedFresher.getEmail());
+            fresher.put("language", editedFresher.getLanguage().toUpperCase());
+            fresher.put("center", editedFresher.getCenter());
+            fresher.put("dateOfBirth", editedFresher.getDateOfBirth());
+            fresher.put("score", editedFresher.getScore());
+            fresher.put("image", downloadImgUrl);
+
             myRef.updateChildren(fresher).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
@@ -298,12 +292,43 @@ public class FragmentEditDeleteFresher extends Fragment {
                         PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(),
                                 4, intent, 0);
                         am.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
-                        updateCenterTotalFresherEdit(center);
+                        updateCenterTotalFresherEdit(editedFresher.getCenter());
                         goBackToMainActivity();
                     }
                 }
             });
-        }
+    }
+
+    private void editFresherNoImage(Fresher editedFresher) {
+            HashMap<String, Object> fresher = new HashMap<>();
+            fresher.put("key", key);
+            fresher.put("name", editedFresher.getName());
+            fresher.put("email", editedFresher.getEmail());
+            fresher.put("language", editedFresher.getLanguage().toUpperCase());
+            fresher.put("center", editedFresher.getCenter());
+            fresher.put("dateOfBirth", editedFresher.getDateOfBirth());
+            fresher.put("score", editedFresher.getScore());
+            myRef.updateChildren(fresher).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(getActivity(),getResources().getString(R.string.toastUpdateSuccess), Toast.LENGTH_SHORT).show();
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.setTimeInMillis(System.currentTimeMillis());
+                        AlarmManager am = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
+
+                        Intent intent = new Intent(getActivity(),
+                                MyReceiver.class);
+                        intent.putExtra("myAction", "mDoNotifyUpdateFresher");
+                        intent.putExtra("fresherName",etName.getText().toString());
+                        PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(),
+                                4, intent, 0);
+                        am.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+                        updateCenterTotalFresherEdit(editedFresher.getCenter());
+                        goBackToMainActivity();
+                    }
+                }
+            });
     }
 
     private void displayFresher() {
@@ -337,7 +362,6 @@ public class FragmentEditDeleteFresher extends Fragment {
     private void updateCenterTotalFresherEdit(String centerName)
     {
         if (!centerName.equals(oldCenterName)){
-            db = new SQLiteHelper(getActivity());
             // thay doi so luong fresher center moi
             Center center = db.getCenterByAcronym(centerName);
             center.setTotalFresher(center.getTotalFresher()+1);
@@ -358,6 +382,59 @@ public class FragmentEditDeleteFresher extends Fragment {
             db.updateCenter(center);
     }
 
+    protected static boolean validateDoB(String dateString, String format) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
+
+        try {
+            LocalDate parsedDate = LocalDate.parse(dateString, formatter);
+            return true;
+        } catch (DateTimeParseException e) {
+            return false;
+        }
+    }
+
+    protected static boolean validateName(String name) {
+        String regex = "[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?0-9]"; // Biểu thức chính quy để kiểm tra ký tự đặc biệt hoặc số
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(name);
+
+        return !matcher.find();
+    }
+
+    protected boolean validateEmail(String email)
+    {
+        String regex = "^[A-Za-z0-9+_.-]+@(.+)$";
+
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(email);
+
+        return matcher.matches();
+    }
+
+    protected boolean validateCenter(String centerName)
+    {
+        List<Center> list = db.getAllCenter();
+        for (Center i : list){
+            if(i.getAcronym().equals(centerName)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    protected boolean validateLang(String language)
+    {
+        String[] list = getActivity().getResources().getStringArray(R.array.spProgramLang);
+        for(int i = 0;i < list.length;i++)
+        {
+            if(language.trim().equalsIgnoreCase(list[i]))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private void openGallery(){
         Intent intent=new Intent();
         intent.setAction(Intent.ACTION_GET_CONTENT);
@@ -365,30 +442,28 @@ public class FragmentEditDeleteFresher extends Fragment {
         startActivityForResult(intent,galleryPick);
     }
 
-    private String scoreFresher()
+    protected String scoreFresher(String score1, String score2, String score3)
     {
         double score = 0.00F;
-        double score1 = 0, score2 = 0, score3 = 0;
+        double sc1 = 0, sc2 = 0, sc3 = 0;
         int count  = 0;
-        if(!etScore1.getText().toString().isEmpty())
+        if(!score1.isEmpty())
         {
-            score1 = Double.parseDouble(etScore1.getText().toString());
+            sc1 = Double.parseDouble(score1);
             count++;
-
         }
-        if(!etScore2.getText().toString().isEmpty())
+        if(!score2.isEmpty())
         {
-            score2 = Float.parseFloat(etScore2.getText().toString());
+            sc2 = Double.parseDouble(score2);
             count++;
-
         }
-        if(!etScore3.getText().toString().isEmpty())
+        if(!score3.isEmpty())
         {
-            score3 = Float.parseFloat(etScore3.getText().toString());
+            sc3 = Double.parseDouble(score3);
             count++;
-
         }
-        score = (score1 + score2 + score3) / count;
+
+        score = (sc1 + sc2 + sc3) / count;
         
         return String.format("%.2f", score).replace(",", ".");
     }
@@ -416,6 +491,7 @@ public class FragmentEditDeleteFresher extends Fragment {
         btUpdate = mView.findViewById(R.id.btUpdateEdit);
         btDelete = mView.findViewById(R.id.btDeleteEdit);
         btCancel = mView.findViewById(R.id.btCancelEdit);
+        db = new SQLiteHelper(getActivity());
     }
 
     private void goBackToMainActivity() {

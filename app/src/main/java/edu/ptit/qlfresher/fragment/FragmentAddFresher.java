@@ -1,6 +1,7 @@
 package edu.ptit.qlfresher.fragment;
 
 import android.app.AlarmManager;
+import android.app.DatePickerDialog;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -10,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -32,19 +34,26 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-import edu.ptit.qlfresher.activity.AddActivity;
-import edu.ptit.qlfresher.receiver.MyReceiver;
 import edu.ptit.qlfresher.R;
+import edu.ptit.qlfresher.activity.AddActivity;
 import edu.ptit.qlfresher.database.SQLiteHelper;
 import edu.ptit.qlfresher.model.Center;
 import edu.ptit.qlfresher.model.Fresher;
+import edu.ptit.qlfresher.receiver.MyReceiver;
 
 public class FragmentAddFresher extends Fragment {
     private static final String TAG = "To";
@@ -57,8 +66,8 @@ public class FragmentAddFresher extends Fragment {
     private String downloadImgUrl,randomKey;
     private StorageReference imgRef;
     private DatabaseReference myRef;
-    private Integer NumWork = new Random().nextInt();
-    private String keytodo = Integer.toString(NumWork);
+    private final Integer NumWork = new Random().nextInt();
+    private final String keytodo = Integer.toString(NumWork);
     private String name, email, language, center, dob;
     private int mYear, mMonth, mDay;
     private View mView;
@@ -98,6 +107,28 @@ public class FragmentAddFresher extends Fragment {
                 goBackToMainActivity();
             }
         });
+        etDoB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Calendar c = Calendar.getInstance();
+                mYear = c.get(Calendar.YEAR) / 1000 * 1000;
+                mMonth = c.get(Calendar.MONTH);
+                mDay = c.get(Calendar.DAY_OF_MONTH);
+                DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(),
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                                String day = String.valueOf(dayOfMonth), mon = String.valueOf(month);
+                                if(dayOfMonth < 10) day = "0" + dayOfMonth;
+                                if(month < 9) mon = "0" + month;
+                                String ns = day + "/" + mon + "/" + year;
+                                etDoB.setText(ns);
+                            }
+                        }, mYear, mMonth, mDay);
+                datePickerDialog.show();
+            }
+        });
+
         return mView;
     }
 
@@ -110,13 +141,15 @@ public class FragmentAddFresher extends Fragment {
         dob = etDoB.getText().toString();
         if(imageUri==null){
             Toast.makeText(getActivity(), getResources().getString(R.string.val_img), Toast.LENGTH_SHORT).show();
-        }else if(email.isEmpty()){
+        }else if(email.isEmpty() || !validateEmail(email)){
             Toast.makeText(getActivity(), getResources().getString(R.string.val_email), Toast.LENGTH_SHORT).show();
-        }else if(language.isEmpty()){
+        }else if(language.isEmpty() || !validateLang(language)){
             Toast.makeText(getActivity(), getResources().getString(R.string.val_lang), Toast.LENGTH_SHORT).show();
+        }else if(center.isEmpty() || !validateCenter(center)){
+            Toast.makeText(getActivity(), getResources().getString(R.string.val_center), Toast.LENGTH_SHORT).show();
         }else if(name.isEmpty()){
             Toast.makeText(getActivity(), getResources().getString(R.string.val_name), Toast.LENGTH_SHORT).show();
-        }else if(dob.isEmpty()){
+        }else if(dob.isEmpty() || !validateDoB(dob, "dd/MM/yyyy")){
             Toast.makeText(getActivity(), getResources().getString(R.string.val_dob), Toast.LENGTH_SHORT).show();
         }else{
             checkExistFresher(email);
@@ -134,7 +167,10 @@ public class FragmentAddFresher extends Fragment {
                     Fresher fresher = dataSnapshot1.getValue(Fresher.class);
                     mList.add(fresher.getEmail());
                 }
-                checkExist(mList, email);
+                if (mList.size() == dataSnapshot.getChildrenCount()) {
+                    // Đã lấy hết dữ liệu, gọi hàm kiểm tra tồn tại
+                    checkExist(mList, email);
+                }
             }
 
             @Override
@@ -145,7 +181,7 @@ public class FragmentAddFresher extends Fragment {
         });
     }
 
-    private void checkExist(List<String> mList, String email) {
+    protected void checkExist(List<String> mList, String email) {
         boolean check = false;
         for (String i : mList) {
             if ((i.equals(email)))
@@ -159,6 +195,59 @@ public class FragmentAddFresher extends Fragment {
         } else {
             Toast.makeText(getActivity(), getResources().getString(R.string.toast_fresher_exists), Toast.LENGTH_SHORT).show();
         }
+    }
+
+    protected static boolean validateDoB(String dateString, String format) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
+
+        try {
+            LocalDate parsedDate = LocalDate.parse(dateString, formatter);
+            return true;
+        } catch (DateTimeParseException e) {
+            return false;
+        }
+    }
+
+    protected static boolean checkValidName(String name) {
+        String regex = "[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?0-9]"; // Biểu thức chính quy để kiểm tra ký tự đặc biệt hoặc số
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(name);
+
+        return !matcher.find();
+    }
+
+    protected boolean validateEmail(String email)
+    {
+        String regex = "^[A-Za-z0-9+_.-]+@(.+)$";
+
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(email);
+
+        return matcher.matches();
+    }
+
+    protected boolean validateLang(String language)
+    {
+        String[] list = getActivity().getResources().getStringArray(R.array.spProgramLang);
+        for(int i = 0;i < list.length;i++)
+        {
+            if(language.trim().equalsIgnoreCase(list[i]))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    protected boolean validateCenter(String centerName)
+    {
+        List<Center> list = db.getAllCenter();
+        for (Center i : list){
+            if(i.getAcronym().equals(centerName)){
+                return true;
+            }
+        }
+        return false;
     }
 
     private void storeFresher(){
@@ -181,8 +270,8 @@ public class FragmentAddFresher extends Fragment {
         }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                Toast.makeText(getActivity(),
-                        "Thêm fresher thành công!", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getActivity(),
+//                        "Thêm fresher thành công!", Toast.LENGTH_SHORT).show();
                 Task<Uri> uriTask=uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
                     @Override
                     public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
@@ -210,7 +299,7 @@ public class FragmentAddFresher extends Fragment {
         fresher.put("key",TAG+randomKey);
         fresher.put("name",name);
         fresher.put("email", email);
-        fresher.put("language", language);
+        fresher.put("language", language.toUpperCase());
         fresher.put("center", center);
         fresher.put("dateOfBirth", dob);
         fresher.put("score", "0");

@@ -39,7 +39,7 @@ import edu.ptit.qlfresher.R;
 import edu.ptit.qlfresher.database.SQLiteHelper;
 import edu.ptit.qlfresher.model.Center;
 import edu.ptit.qlfresher.model.Fresher;
-import edu.ptit.qlfresher.model.StatisticsCallback;
+import edu.ptit.qlfresher.modelinterface.StatisticsCallback;
 
 public class FragmentDashboard extends Fragment {
     private BarChart barChart;
